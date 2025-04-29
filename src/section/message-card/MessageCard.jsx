@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+//#region --- Styling ---
+
 const MessageCardWrapper = styled.fieldset`
 display: flex;
 flex-direction: column;
@@ -42,43 +44,62 @@ width: 620px;
 
 }
 `
+//#endregion
 
-export const MessageData = () => {
-
-  let newMessage = {
-    id: 0,
-    textContent: "",
-    timestamp: "",
-    likes: 0
-  }
-}
 
 export const MessageCard = () => {
 
   const [userInput, setUserInput] = useState("")
+  const [messages, setMessages] = useState([])
 
-  const submitHandler = () => {
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    if (userInput.trim() === "") //The Trim takes away all the spaces
+      return
+
+    const newMessage = {
+      id: Date.now(), // This will be a uniqe ID
+      text: userInput.trim(),
+      timestamp: new Date(),
+      likes: 0,
+    }
+
+    setMessages((prev) => [newMessage, ...prev])
     setUserInput("")
   }
 
   return (
-    <form onSubmit={(event) => event.preventDefault()}>
-      <MessageCardWrapper>
-        <p>What´s making you happy right now?</p>
-        {/* <legend>What´s making you happy right now?</legend> */}
-        <label>
-          {/* What´s making you happy right now? */}
-          <input
-            type="text"
-            value={userInput}
-            onChange={(event) => setUserInput(event.target.value)}
-            placeholder="Wright something happy!"
-          />
-        </label>
-        <button type="submit" onClick={submitHandler}>❤️ Send Happy Thoughts ❤️</button>
-      </MessageCardWrapper>
+    <>
+      <form onSubmit={(event) => event.preventDefault()}>
+        <MessageCardWrapper>
+          <p>What´s making you happy right now?</p>
+          {/* <legend>What´s making you happy right now?</legend> */}
+          <label>
+            {/* What´s making you happy right now? */}
+            <input
+              type="text"
+              value={userInput}
+              onChange={(event) => setUserInput(event.target.value)}
+              placeholder="Wright something happy!"
+            />
+          </label>
+          <button type="submit" onClick={submitHandler}>❤️ Send Happy Thoughts ❤️</button>
+        </MessageCardWrapper>
 
-    </form >
+      </form >
+
+
+      <MessageCardWrapper>
+        {messages.map((message) => (
+          <div key={message.id}>
+            <p>{message.text}</p>
+            <p>{new Date(message.timestamp).toLocaleString()}</p>
+          </div>
+        ))}
+      </MessageCardWrapper>
+    </>
+
 
 
   )
