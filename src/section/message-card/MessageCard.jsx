@@ -18,6 +18,7 @@ input {
 height: 40px;
 width: 100%;
 padding: 10px 20px;
+cursor: pointer;
 }
 
 button {
@@ -27,9 +28,12 @@ button {
   border: none;
   padding: 12px;
   margin: 12px 0;
+  cursor: pointer;
+  transition: ease .3s;
 
   &:hover {
   background-color: #f0aeae;
+  transform: scale(1.03);
   }
 }
 
