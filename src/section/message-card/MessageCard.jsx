@@ -43,22 +43,23 @@ width: 620px;
 }
 `
 
-// export const MessageData = () => {
+export const MessageData = () => {
 
-//   let message = [
-//     {
-//       id: 0,
-//       text: "",
-//       timestamp: "",
-//       likes: 0
-//     }
-//   ]
-
-// }
+  let newMessage = {
+    id: 0,
+    textContent: "",
+    timestamp: "",
+    likes: 0
+  }
+}
 
 export const MessageCard = () => {
 
-  const [text, setText] = useState("")
+  const [userInput, setUserInput] = useState("")
+
+  const submitHandler = () => {
+    setUserInput("")
+  }
 
   return (
     <form onSubmit={(event) => event.preventDefault()}>
@@ -69,12 +70,12 @@ export const MessageCard = () => {
           {/* What´s making you happy right now? */}
           <input
             type="text"
-            value={text}
-            onChange={(event) => setText(event.target.value)}
+            value={userInput}
+            onChange={(event) => setUserInput(event.target.value)}
             placeholder="Wright something happy!"
           />
         </label>
-        <button type="submit">❤️ Send Happy Thoughts ❤️</button>
+        <button type="submit" onClick={submitHandler}>❤️ Send Happy Thoughts ❤️</button>
       </MessageCardWrapper>
 
     </form >
