@@ -99,17 +99,17 @@ export const MessageCard = () => {
           </div>
         ))}
       </MessageCardWrapper> */}
-      
-        {messages.map((message) => (
-          <>
-          <CommentCard>
+
+      {messages.map((message) => (
+        <>
+          <CommentCard
             key={message.id}
             text={message.text}
-            timestamp={new Date(message.timestamp).toLocaleString()}
+            timestamp={new Date(message.timestamp).toLocaleString()}>
           </CommentCard>
-          </>
-        ))}
-      
+        </>
+      ))}
+
     </>
 
 
