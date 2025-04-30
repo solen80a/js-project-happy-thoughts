@@ -24,7 +24,8 @@ height: 80px;
 width: 100%;
 padding: 10px 20px;
 cursor: pointer;
-padding-bottom: 35px;
+padding-bottom: 32px;
+font-size: 16px;
 }
 
 button {
@@ -51,7 +52,7 @@ width: 620px;
 //#endregion
 
 
-export const MessageCard = ({created_at}) => {
+export const MessageCard = ({ created_at }) => {
 
   const [userInput, setUserInput] = useState("")
   const [messages, setMessages] = useState([])
