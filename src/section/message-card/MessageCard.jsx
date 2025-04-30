@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { CommentCard } from "../comment-card/CommentCard";
 
 //#region --- Styling ---
 
@@ -90,14 +91,25 @@ export const MessageCard = () => {
       </form >
 
 
-      <MessageCardWrapper>
+      {/* <MessageCardWrapper>
         {messages.map((message) => (
           <div key={message.id}>
             <p>{message.text}</p>
             <p>{new Date(message.timestamp).toLocaleString()}</p>
           </div>
         ))}
-      </MessageCardWrapper>
+      </MessageCardWrapper> */}
+      
+        {messages.map((message) => (
+          <>
+          <CommentCard>
+            key={message.id}
+            text={message.text}
+            timestamp={new Date(message.timestamp).toLocaleString()}
+          </CommentCard>
+          </>
+        ))}
+      
     </>
 
 

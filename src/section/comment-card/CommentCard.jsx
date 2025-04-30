@@ -1,5 +1,6 @@
 import { useState} from "react";
 import styled from "styled-components";
+import {MessageCard} from "../message-card/MessageCard"
 
 const CommentCardWrapper = styled.div `
   display: flex;
@@ -22,6 +23,8 @@ const CommentCardWrapper = styled.div `
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    cursor: pointer;
+    transition: ease .3s;
 
     &:hover {
       background-color: #f0aeae;
@@ -56,7 +59,7 @@ const CommentCardWrapper = styled.div `
   `
 
 
-export const CommentCard = () => {
+export const CommentCard = ({text, timestamp}) => {
 
   const [like, setLike] = useState(0) 
   const [likeColor, setLikeColor] = useState(false) 
@@ -70,7 +73,9 @@ export const CommentCard = () => {
 
   return (
     <CommentCardWrapper>
-    <p> temp{} </p>
+    
+    <p> temp {text} </p> 
+    
     <CommentCardFooter>
     <div>
       <button
@@ -78,7 +83,7 @@ export const CommentCard = () => {
       onClick={likeHandeler}>❤️</button>
       <p>x {like}</p>
     </div>
-    <p>10 minutes ago{}</p> 
+    <p>10 minutes ago{timestamp}</p> 
     </CommentCardFooter>
     </CommentCardWrapper>
 
