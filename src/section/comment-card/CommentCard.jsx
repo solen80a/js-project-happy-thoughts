@@ -9,7 +9,7 @@ const CommentCardWrapper = styled.div `
   border: 1px solid #000;  
   box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
   width: 320px;
-  margin: 0 auto;
+  margin: 28px auto;
   padding: 12px 18px;
   gap: 12px;
 
@@ -74,7 +74,7 @@ export const CommentCard = ({text, timestamp}) => {
   return (
     <CommentCardWrapper>
     
-    <p> temp {text} </p> 
+    <p>{text}</p> 
     
     <CommentCardFooter>
     <div>
@@ -83,7 +83,7 @@ export const CommentCard = ({text, timestamp}) => {
       onClick={likeHandeler}>❤️</button>
       <p>x {like}</p>
     </div>
-    <p>10 minutes ago{timestamp}</p> 
+    <p>{timestamp}</p> 
     </CommentCardFooter>
     </CommentCardWrapper>
 

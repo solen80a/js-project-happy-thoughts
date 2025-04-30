@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { CommentCard } from "../comment-card/CommentCard";
+import moment from 'moment';
+
 
 //#region --- Styling ---
 
@@ -18,10 +20,11 @@ gap: 12px;
 box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
 
 input {
-height: 40px;
+height: 80px;
 width: 100%;
 padding: 10px 20px;
 cursor: pointer;
+padding-bottom: 35px;
 }
 
 button {
@@ -48,7 +51,7 @@ width: 620px;
 //#endregion
 
 
-export const MessageCard = () => {
+export const MessageCard = ({created_at}) => {
 
   const [userInput, setUserInput] = useState("")
   const [messages, setMessages] = useState([])
@@ -62,7 +65,8 @@ export const MessageCard = () => {
     const newMessage = {
       id: Date.now(), // This will be a uniqe ID
       text: userInput.trim(),
-      timestamp: new Date(),
+      // timestamp: dateTimeAgo,//new Date(),
+      timestamp: moment().fromNow(),
       likes: 0,
     }
 
@@ -90,30 +94,17 @@ export const MessageCard = () => {
 
       </form >
 
-
-      {/* <MessageCardWrapper>
-        {messages.map((message) => (
-          <div key={message.id}>
-            <p>{message.text}</p>
-            <p>{new Date(message.timestamp).toLocaleString()}</p>
-          </div>
-        ))}
-      </MessageCardWrapper> */}
-
       {messages.map((message) => (
         <>
           <CommentCard
             key={message.id}
             text={message.text}
-            timestamp={new Date(message.timestamp).toLocaleString()}>
+            timestamp={message.timestamp}>
           </CommentCard>
         </>
       ))}
 
     </>
 
-
-
   )
 }
-
