@@ -52,7 +52,7 @@ width: 620px;
 //#endregion
 
 
-export const MessageCard = ({ created_at }) => {
+export const MessageCard = () => {
 
   const [userInput, setUserInput] = useState("")
   const [messages, setMessages] = useState([])
@@ -66,7 +66,6 @@ export const MessageCard = ({ created_at }) => {
     const newMessage = {
       id: Date.now(), // This will be a uniqe ID
       text: userInput.trim(),
-      // timestamp: dateTimeAgo,//new Date(),
       timestamp: moment().fromNow(),
       likes: 0,
     }
