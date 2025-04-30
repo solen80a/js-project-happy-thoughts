@@ -24,8 +24,7 @@ height: 80px;
 width: 100%;
 padding: 10px 20px;
 cursor: pointer;
-padding-bottom: 32px;
-font-size: 16px;
+padding-bottom: 35px;
 }
 
 button {
@@ -52,31 +51,36 @@ width: 620px;
 //#endregion
 
 
-export const MessageCard = () => {
+export const MessageCard = ({input, setInput, comment}) => {
 
-  const [userInput, setUserInput] = useState("")
-  const [messages, setMessages] = useState([])
+  const handleSubmit = (event) => {
+    comment(event, input);
+  };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
+  // const [userInput, setUserInput] = useState("")
+  //const [messages, setMessages] = useState([])
 
-    if (userInput.trim() === "") //The Trim takes away all the spaces
-      return
+  // const submitHandler = (event) => {
+  //   event.preventDefault();
 
-    const newMessage = {
-      id: Date.now(), // This will be a uniqe ID
-      text: userInput.trim(),
-      timestamp: moment().fromNow(),
-      likes: 0,
-    }
+  //   if (userInput.trim() === "") //The Trim takes away all the spaces
+  //     return
 
-    setMessages((prev) => [newMessage, ...prev])
-    setUserInput("")
-  }
+  //   const newMessage = {
+  //     id: Date.now(), // This will be a uniqe ID
+  //     text: userInput.trim(),      
+  //     timestamp: moment().fromNow(),
+  //     likes: 0,
+  //   }
+
+  //   setMessages((prev) => [newMessage, ...prev])
+  //   setUserInput("")
+  // }
 
   return (
     <>
-      <form onSubmit={(event) => event.preventDefault()}>
+      {/* <form onSubmit={(event) => event.preventDefault()}> */}
+      <form onSubmit={handleSubmit}>
         <MessageCardWrapper>
           <p>What´s making you happy right now?</p>
           {/* <legend>What´s making you happy right now?</legend> */}
@@ -84,17 +88,21 @@ export const MessageCard = () => {
             {/* What´s making you happy right now? */}
             <input
               type="text"
-              value={userInput}
-              onChange={(event) => setUserInput(event.target.value)}
+              // value={userInput}
+              value={input}
+              // onChange={(event) => setUserInput(event.target.value)}
+              onChange={(event) => setInput(event.target.value)}
               placeholder="Wright something happy!"
             />
           </label>
-          <button type="submit" onClick={submitHandler}>❤️ Send Happy Thoughts ❤️</button>
+          {/* <button type="submit" onClick={submitHandler}>❤️ Send Happy Thoughts ❤️</button> */}
+          <button type="submit" onClick={comment}>❤️ Send Happy Thoughts ❤️</button>
         </MessageCardWrapper>
 
       </form >
+      
 
-      {messages.map((message) => (
+      {/* {messages.map((message) => (
         <>
           <CommentCard
             key={message.id}
@@ -102,7 +110,7 @@ export const MessageCard = () => {
             timestamp={message.timestamp}>
           </CommentCard>
         </>
-      ))}
+      ))} */}
 
     </>
 
