@@ -1,9 +1,10 @@
 import { MessageCard } from "./section/message-card/MessageCard"
+import { H1 } from "./styling/Typography"
 
 export const App = () => {
   return (
     <>
-      <h1 style={{ textAlign: 'center' }}>Happy Thoughts</h1>
+      <H1>Happy Thoughts</H1>
       {/* <Header /> */}
       < MessageCard />
       {/* <Footer/> */}
