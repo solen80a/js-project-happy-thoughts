@@ -4,9 +4,15 @@ const FooterWrapper = styled.footer`
   display: flex;
   gap: 12px;
   align-items: center;
+  justify-content: center;
   font-size: 15px;
   padding: 24px;
-  background-color: pink;
+  background-color: pink; 
+  left: 0px;
+  bottom: 0px; 
+  right: 0px;
+  margin-bottom: 0px;
+  position: fixed;
 
   i {
     font-size: 30px;
@@ -15,9 +21,9 @@ const FooterWrapper = styled.footer`
 `
 
 export const Footer = () => {
-
+return (
   <FooterWrapper>
-    <p>Created by: Simon & Sofia</p>
-    <a href="https://github.com/solen80a/js-project-happy-thoughts"><i class="fa-brands fa-github"></i></a>
+    <p>Created by: Simon & Sofia</p>    
   </FooterWrapper>
+  )
 }
