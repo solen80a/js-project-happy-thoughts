@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-//#region --- Styling ---
+//#region ---- STYLING ----
 
 const MessageCardWrapper = styled.fieldset`
 display: flex;
@@ -16,6 +16,7 @@ gap: 12px;
 box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
 
 input {
+border: solid 2px ${(props) => (props.maxCharacterIndicator ? "red" : "white")};
 height: 80px;
 width: 100%;
 padding: 10px 20px;
@@ -44,30 +45,37 @@ width: 620px;
 
 }
 `
+
+const ErrorMessage = styled.p`
+color: red;
+`
 //#endregion
 
+//#region ---- FUNCTIONS ----
 
-export const MessageCard = ({ input, setInput, comment, maxCharacters }) => {
+export const MessageCard = ({ input, setInput, comment, maxCharacters, maxCharacterIndicator }) => {
 
   const handleSubmit = (event) => {
     comment(event, input);
   };
 
+  //#endregion
+
   return (
     <>
       <form
         onSubmit={handleSubmit}>
-        <MessageCardWrapper>
+        <MessageCardWrapper maxCharacterIndicator={maxCharacterIndicator}>
           <p>What´s making you happy right now?</p>
           <label>
             <input
               type="text"
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              placeholder="Wright something happy!"
+              placeholder="Write something happy!"
             />
           </label>
-          <p>{maxCharacters}</p>
+          <ErrorMessage>{maxCharacters}</ErrorMessage>
           <button type="submit" onClick={comment}>❤️ Send Happy Thoughts ❤️</button>
         </MessageCardWrapper>
 

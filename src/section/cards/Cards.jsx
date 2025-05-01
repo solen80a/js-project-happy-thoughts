@@ -8,7 +8,8 @@ export const Cards = () => {
 
   const [userInput, setUserInput] = useState("")
   const [messages, setMessages] = useState([])
-  const [MaxCharacterMessage, setMaxCharacterMessage] = useState("")
+  const [maxCharacterMessage, setMaxCharacterMessage] = useState("")
+  const [maxCharacterIndicator, setMaxCharacterIndicator] = useState(false)
   // const [CharacterCount, setCharacterCount] = useState(0)
 
   const submitHandler = (event) => {
@@ -17,11 +18,13 @@ export const Cards = () => {
     if (userInput.trim() === "") //The Trim takes away all the spaces
       return
 
-    if (userInput.length >= 10) {
-      setMaxCharacterMessage(`The limit is 50 characters. You entered ${userInput.length}.`)
+    if (userInput.length >= 70) {
+      setMaxCharacterMessage(`The limit is 70 characters. You entered ${userInput.length}.`)
+      setMaxCharacterIndicator(true)
       return
     } else {
       setMaxCharacterMessage("")
+      setMaxCharacterIndicator(false)
     }
 
 
@@ -45,7 +48,10 @@ export const Cards = () => {
         input={userInput}
         setInput={setUserInput}
         comment={submitHandler}
-        maxCharacters={MaxCharacterMessage} />
+        maxCharacters={maxCharacterMessage}
+        maxCharacterIndicator={maxCharacterIndicator}
+      />
+
       {messages.map((message) => (
         <>
           <CommentCard
