@@ -47,24 +47,21 @@ width: 620px;
 //#endregion
 
 
-export const MessageCard = ({input, setInput, comment}) => {
+export const MessageCard = ({ input, setInput, comment }) => {
 
   const handleSubmit = (event) => {
     comment(event, input);
   };
 
-    return (
+  return (
     <>
-      {/* <form onSubmit={(event) => event.preventDefault()}> */}
       <form onSubmit={handleSubmit}>
         <MessageCardWrapper>
           <p>What´s making you happy right now?</p>
-          {/* <legend>What´s making you happy right now?</legend> */}
           <label>
-            {/* What´s making you happy right now? */}
             <input
-              type="text"              
-              value={input}              
+              type="text"
+              value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="Wright something happy!"
             />
@@ -73,9 +70,9 @@ export const MessageCard = ({input, setInput, comment}) => {
         </MessageCardWrapper>
 
       </form >
-      
 
-      
+
+
     </>
 
   )
