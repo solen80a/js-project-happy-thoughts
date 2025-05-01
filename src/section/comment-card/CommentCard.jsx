@@ -1,7 +1,9 @@
-import { useState} from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
-const CommentCardWrapper = styled.div `
+//#region ---- STYLING ----
+
+const CommentCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -11,6 +13,7 @@ const CommentCardWrapper = styled.div `
   margin: 28px auto;
   padding: 12px 18px;
   gap: 12px;
+  transition: ease 1s;
 
   @media (min-width: 640px) {
     width: 620px;    
@@ -32,6 +35,28 @@ const CommentCardWrapper = styled.div `
 
     &.like-color.on {
       background-color: pink;
+      border-radius: 50%;
+      animation: pulse .7s;
+      }
+
+      @keyframes Pulse {
+        0% {
+          transform: scale(1);
+         
+        }
+        30% {
+          transform: scale(1.3);
+        }
+        50% {
+          transform: scale(0.9);
+        }
+        70% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+
     }
 
     .like-color.off {
@@ -40,7 +65,7 @@ const CommentCardWrapper = styled.div `
     }
   `
 
-  const CommentCardFooter = styled.footer `
+const CommentCardFooter = styled.footer`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -57,33 +82,38 @@ const CommentCardWrapper = styled.div `
     }
   `
 
+//#endregion
 
-export const CommentCard = ({text, timestamp}) => {
+//#region ---- FUNCTIONS ----
 
-  const [like, setLike] = useState(0) 
-  const [likeColor, setLikeColor] = useState(false) 
+export const CommentCard = ({ text, timestamp }) => {
+
+  const [like, setLike] = useState(0)
+  const [likeColor, setLikeColor] = useState(false)
 
   const likeHandeler = () => {
-    return(
-    setLike(like === 0 ? like + 1 : like - 1),      
-    setLikeColor((prev) => !prev)
-  )
+    return (
+      setLike(like === 0 ? like + 1 : like - 1),
+      setLikeColor((prev) => !prev)
+
+    )
   }
+
 
   return (
     <CommentCardWrapper>
-    
-    <p>{text}</p> 
-    
-    <CommentCardFooter>
-    <div>
-      <button
-      className={`like-color ${likeColor ? "on" : "off"}`} 
-      onClick={likeHandeler}>❤️</button>
-      <p>x {like}</p>
-    </div>
-    <p>{timestamp}</p> 
-    </CommentCardFooter>
+
+      <p>{text}</p>
+
+      <CommentCardFooter>
+        <div>
+          <button
+            className={`like-color ${likeColor ? "on" : "off"}`}
+            onClick={likeHandeler}>❤️</button>
+          <p>x {like}</p>
+        </div>
+        <p>{timestamp}</p>
+      </CommentCardFooter>
     </CommentCardWrapper>
 
 
