@@ -39,7 +39,7 @@ const CommentCardWrapper = styled.div`
       animation: pulse .7s;
       }
 
-      @keyframes Pulse {
+      @keyframes pulse {
         0% {
           transform: scale(1);
          
