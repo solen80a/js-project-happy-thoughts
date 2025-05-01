@@ -2,6 +2,7 @@ import { MessageCard } from "./section/message-card/MessageCard"
 import {useState} from "react";
 import { CommentCard } from "./section/comment-card/CommentCard";
 import moment from 'moment';
+import {Footer} from "./section/Footer";
 
 export const App = () => {
   const [userInput, setUserInput] = useState("")
@@ -26,8 +27,7 @@ export const App = () => {
 
   return (
     <>
-      <h1 style={{ textAlign: 'center' }}>Happy Thoughts</h1>
-      {/* <Header /> */}
+      <h1 style={{ textAlign: 'center' }}>Happy Thoughts</h1>      
       < MessageCard 
         input={userInput} 
         setInput={setUserInput} 
@@ -41,7 +41,7 @@ export const App = () => {
                     
           </>
         ))}
-      {/* <Footer/> */}
+      <Footer/>
     </>
   )
 }
