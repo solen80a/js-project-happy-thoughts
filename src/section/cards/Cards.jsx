@@ -19,7 +19,7 @@ export const Cards = () => {
       return
 
     if (userInput.length >= 70) {
-      setMaxCharacterMessage(`The limit is 70 characters. You entered ${userInput.length}.`)
+      setMaxCharacterMessage(`: You entered to many characters!`)
       setMaxCharacterIndicator(true)
       return
     } else {

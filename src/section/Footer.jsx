@@ -21,9 +21,9 @@ const FooterWrapper = styled.footer`
 `
 
 export const Footer = () => {
-return (
-  <FooterWrapper>
-    <p>Created by: Simon & Sofia</p>    
-  </FooterWrapper>
+  return (
+    <FooterWrapper>
+      <p>Created by: Simon & Sofia</p>
+    </FooterWrapper>
   )
 }

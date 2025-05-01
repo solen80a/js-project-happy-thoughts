@@ -15,6 +15,7 @@ padding: 12px 18px;
 gap: 12px;
 box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
 
+
 input {
 border: solid 2px ${(props) => (props.maxCharacterIndicator ? "red" : "white")};
 height: 80px;
@@ -42,13 +43,23 @@ button {
 
 @media (min-width: 640px) {
 width: 620px;
-
 }
 `
 
 const ErrorMessage = styled.p`
-color: red;
+color: ${(props) => (props.maxCharacterIndicator ? "red" : "black")};
+text-align: right;
+margin: 0;
+padding: 0;
+max-width: 150px;
 `
+
+const ExtraWrapper = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+`
+
 //#endregion
 
 //#region ---- FUNCTIONS ----
@@ -69,14 +80,17 @@ export const MessageCard = ({ input, setInput, comment, maxCharacters, maxCharac
           <p>What´s making you happy right now?</p>
           <label>
             <input
+              // maxLength={100}
               type="text"
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="Write something happy!"
             />
           </label>
-          <ErrorMessage>{maxCharacters}</ErrorMessage>
-          <button type="submit" onClick={comment}>❤️ Send Happy Thoughts ❤️</button>
+          <ExtraWrapper>
+            <button type="submit" onClick={comment}>❤️ Send Happy Thoughts ❤️</button>
+            <ErrorMessage maxCharacterIndicator={maxCharacterIndicator}>{input.length}/70{maxCharacters}</ErrorMessage>
+          </ExtraWrapper>
         </MessageCardWrapper>
 
       </form >
