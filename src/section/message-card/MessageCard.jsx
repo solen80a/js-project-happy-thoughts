@@ -1,8 +1,4 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { CommentCard } from "../comment-card/CommentCard";
-import moment from 'moment';
-
 
 //#region --- Styling ---
 
@@ -57,27 +53,7 @@ export const MessageCard = ({input, setInput, comment}) => {
     comment(event, input);
   };
 
-  // const [userInput, setUserInput] = useState("")
-  //const [messages, setMessages] = useState([])
-
-  // const submitHandler = (event) => {
-  //   event.preventDefault();
-
-  //   if (userInput.trim() === "") //The Trim takes away all the spaces
-  //     return
-
-  //   const newMessage = {
-  //     id: Date.now(), // This will be a uniqe ID
-  //     text: userInput.trim(),      
-  //     timestamp: moment().fromNow(),
-  //     likes: 0,
-  //   }
-
-  //   setMessages((prev) => [newMessage, ...prev])
-  //   setUserInput("")
-  // }
-
-  return (
+    return (
     <>
       {/* <form onSubmit={(event) => event.preventDefault()}> */}
       <form onSubmit={handleSubmit}>
@@ -87,31 +63,19 @@ export const MessageCard = ({input, setInput, comment}) => {
           <label>
             {/* What´s making you happy right now? */}
             <input
-              type="text"
-              // value={userInput}
-              value={input}
-              // onChange={(event) => setUserInput(event.target.value)}
+              type="text"              
+              value={input}              
               onChange={(event) => setInput(event.target.value)}
               placeholder="Wright something happy!"
             />
           </label>
-          {/* <button type="submit" onClick={submitHandler}>❤️ Send Happy Thoughts ❤️</button> */}
           <button type="submit" onClick={comment}>❤️ Send Happy Thoughts ❤️</button>
         </MessageCardWrapper>
 
       </form >
       
 
-      {/* {messages.map((message) => (
-        <>
-          <CommentCard
-            key={message.id}
-            text={message.text}
-            timestamp={message.timestamp}>
-          </CommentCard>
-        </>
-      ))} */}
-
+      
     </>
 
   )

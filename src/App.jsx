@@ -24,21 +24,23 @@ export const App = () => {
     setUserInput("")
   }
 
-
   return (
     <>
       <h1 style={{ textAlign: 'center' }}>Happy Thoughts</h1>
       {/* <Header /> */}
-      < MessageCard input={userInput} setInput={setUserInput} comment={submitHandler}/>
-      {messages.map((message) => (
-        <>     
-           <CommentCard
-            key={message.id}
-            text={message.text}
-            timestamp={message.timestamp} /> 
-                   
-        </>
-      ))}
+      < MessageCard 
+        input={userInput} 
+        setInput={setUserInput} 
+        comment={submitHandler}/>
+        {messages.map((message) => (
+          <>     
+            <CommentCard
+              key={message.id}
+              text={message.text}
+              timestamp={message.timestamp} /> 
+                    
+          </>
+        ))}
       {/* <Footer/> */}
     </>
   )

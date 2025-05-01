@@ -1,6 +1,5 @@
 import { useState} from "react";
 import styled from "styled-components";
-import {MessageCard} from "../message-card/MessageCard"
 
 const CommentCardWrapper = styled.div `
   display: flex;
