@@ -12,6 +12,7 @@ const FooterWrapper = styled.footer`
   bottom: 0px; 
   right: 0px;
   margin-bottom: 0px;
+  /* margin-top: 100px; */
   position: fixed;
 
   i {

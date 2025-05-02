@@ -10,7 +10,7 @@ const CommentCardWrapper = styled.div`
   border: 1px solid #000;  
   box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
   width: 320px;
-  margin: 28px auto;
+  margin: 28px auto; 
   padding: 12px 18px;
   gap: 12px;
   transition: ease 1s;
