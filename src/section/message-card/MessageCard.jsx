@@ -16,7 +16,16 @@ gap: 12px;
 box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
 
 
-input {
+/* input {
+border: solid 2px ${(props) => (props.maxCharacterIndicator ? "red" : "white")};
+height: 80px;
+width: 100%;
+padding: 10px 20px;
+cursor: pointer;
+padding-bottom: 35px;
+} */
+
+textarea {
 border: solid 2px ${(props) => (props.maxCharacterIndicator ? "red" : "white")};
 height: 80px;
 width: 100%;
@@ -72,23 +81,29 @@ export const MessageCard = ({ input, setInput, comment, maxCharacters, maxCharac
 
   //#endregion
 
+  const EnterPress = (e) => {
+      if (e.keyCode === 13 && e.shiftKey == false) { //keyCode 13 is the enter key
+        e.preventDefault(); 
+        handleSubmit(e); // Submit when Enter is pressed       
+      }}
+
   return (
     <>
       <form
         onSubmit={handleSubmit}>
         <MessageCardWrapper maxCharacterIndicator={maxCharacterIndicator}>
           <p>What´s making you happy right now?</p>
-          <label>
-            <input
-              // maxLength={100}
-              type="text"
+          <label>      
+            <textarea
+              //maxLength={100}
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="Write something happy!"
-            />
+              onKeyDown={EnterPress}
+            ></textarea>
           </label>
           <ExtraWrapper>
-            <button type="submit" onClick={comment}>❤️ Send Happy Thoughts ❤️</button>
+            <button type="submit">❤️ Send Happy Thoughts ❤️</button>
             <ErrorMessage maxCharacterIndicator={maxCharacterIndicator}>{input.length}/70{maxCharacters}</ErrorMessage>
           </ExtraWrapper>
         </MessageCardWrapper>
