@@ -86,18 +86,20 @@ const CommentCardFooter = styled.footer`
 
 //#region ---- FUNCTIONS ----
 
-export const CommentCard = ({ text, timestamp }) => {
+export const CommentCard = ({text, timestamp, likeHandeler, likes, liked }) => {
 
-  const [like, setLike] = useState(0)
-  const [likeColor, setLikeColor] = useState(false)
+  // const [like, setLike] = useState(0)
+  // const [likeColor, setLikeColor] = useState(false)  
 
-  const likeHandeler = () => {
-    return (
-      setLike(like === 0 ? like + 1 : like - 1),
-      setLikeColor((prev) => !prev)
+  // const likeHandeler = () => {
+  //   return (
+  //     setLike(like === 0 ? like + 1 : like - 1),
+  //     setLikeColor((prev) => !prev)
 
-    )
-  }
+  //   )
+  // }
+
+  
 
 
   return (
@@ -108,9 +110,9 @@ export const CommentCard = ({ text, timestamp }) => {
       <CommentCardFooter>
         <div>
           <button
-            className={`like-color ${likeColor ? "on" : "off"}`}
+            className={`like-color ${liked ? "on" : "off"}`}
             onClick={likeHandeler}>❤️</button>
-          <p>x {like}</p>
+          <p>x {likes}</p>
         </div>
         <p>{timestamp}</p>
       </CommentCardFooter>

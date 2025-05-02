@@ -10,7 +10,7 @@ export const Cards = () => {
   const [messages, setMessages] = useState([])
   const [maxCharacterMessage, setMaxCharacterMessage] = useState("")
   const [maxCharacterIndicator, setMaxCharacterIndicator] = useState(false)
-  // const [CharacterCount, setCharacterCount] = useState(0)
+  // const [CharacterCount, setCharacterCount] = useState(0)  
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -27,18 +27,31 @@ export const Cards = () => {
       setMaxCharacterIndicator(false)
     }
 
-
-
     const newMessage = {
       id: Date.now(), // This will be a uniqe ID
       text: userInput.trim(),
       timestamp: moment().fromNow(),
       likes: 0,
+      liked: false,
     }
 
     setMessages((prev) => [newMessage, ...prev])
     setUserInput("")
   }
+
+  const likeHandeler = (id) => {
+    setMessages((prevMessages) =>
+      prevMessages.map((message) =>
+        message.id === id
+          ? {
+              ...message,
+              liked: !message.liked,
+              likes: message.liked ? message.likes - 1 : message.likes + 1,
+            }
+          : message
+      )
+    );
+  };
 
   //#endregion
 
@@ -57,7 +70,11 @@ export const Cards = () => {
           <CommentCard
             key={message.id}
             text={message.text}
-            timestamp={message.timestamp} />
+            timestamp={message.timestamp}
+            likes={message.likes}
+            liked={message.liked}
+            likeHandeler={() => likeHandeler(message.id)}
+             />          
 
         </>
       ))}
