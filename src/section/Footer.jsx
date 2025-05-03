@@ -30,6 +30,10 @@ const FooterWrapper = styled.footer`
     border-radius: 50%;   
   }
 
+  img:hover {  
+    transform: scale(1.1);
+  }
+
 `
 
 export const Footer = () => {
@@ -37,7 +41,7 @@ export const Footer = () => {
     <FooterWrapper>
       <p>Created by: Simon & Sofia</p>
       <a href="https://github.com/solen80a/js-project-happy-thoughts">
-        <img src="./assets/Btn - github.svg" alt="Github icon to access the code" target="_blank"/>
+        <img src="./assets/Btn - github.svg" alt="Github icon to access the code" target="_blank" />
       </a>
     </FooterWrapper>
   )
