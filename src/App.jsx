@@ -8,7 +8,7 @@ export const App = () => {
     <>
       <h1 style={{ textAlign: 'center' }}>Happy Thoughts</h1>
       <Cards />
-      <MessageCardRecent/>
+      {/* <MessageCardRecent/> */}
       <Footer />
     </>
   )

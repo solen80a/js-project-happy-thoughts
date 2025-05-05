@@ -26,9 +26,11 @@ export const MessageCardRecent = () => {
       <CommentCard 
         key={reccomment._id}
         id={reccomment._id}    
-        text={reccomment.message}
+        text={reccomment.message.trim()}
         timestamp={moment(reccomment.createdAt).fromNow()}
-        likes={reccomment.hearts}    
+        likes={reccomment.hearts} 
+        liked={reccomment.hearts >0 ? true : false} 
+          
         />
       </>
     ))} 

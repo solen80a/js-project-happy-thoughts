@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageCard } from "../message-card/MessageCard"
 import { CommentCard } from "../comment-card/CommentCard";
 import moment from 'moment';
@@ -10,7 +10,19 @@ export const Cards = () => {
   const [messages, setMessages] = useState([])
   const [maxCharacterMessage, setMaxCharacterMessage] = useState("")
   const [maxCharacterIndicator, setMaxCharacterIndicator] = useState(false)
-  // const [CharacterCount, setCharacterCount] = useState(0)  
+  // const [CharacterCount, setCharacterCount] = useState(0) 
+  const [recentComments, setRecentComments] = useState([]);
+
+  useEffect(() => {
+    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
+      .then(res => res.json())      
+      .then(json => {
+        console.log(json);
+        setRecentComments(json)
+      })
+      
+  }, []);
+ 
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -40,7 +52,8 @@ export const Cards = () => {
   }
 
   const likeHandeler = (id) => {
-    setMessages((prevMessages) =>
+    if (setMessages || setRecentComments){
+      setMessages((prevMessages) =>
       prevMessages.map((message) =>
         message.id === id
           ? {
@@ -51,6 +64,20 @@ export const Cards = () => {
           : message
       )
     );
+  }
+//   if (setRecentComments){
+//     setRecentComments((prevMessages) =>
+//     prevMessages.map((message) =>
+//       message.id === id
+//         ? {
+//             ...message,
+//             liked: !message.liked,
+//             likes: message.liked ? message.likes - 1 : message.likes + 1,
+//           }
+//         : message
+//     )
+//   );
+// }
   };
 
   //#endregion
@@ -78,6 +105,23 @@ export const Cards = () => {
 
         </>
       ))}
+
+       {recentComments.map((reccomment) => (  
+            <>  
+            <CommentCard 
+              key={reccomment._id}                 
+              text={reccomment.message.trim()}
+              timestamp={moment(reccomment.createdAt).fromNow()}
+              likes={reccomment.hearts} 
+              // vill ju inte att den ska vara markerad om inte 
+              // jag likat, vilket den är nu
+              liked={reccomment.hearts >0 ? true : false} 
+              //liked={reccomment.hearts}
+              likeHandeler={() => likeHandeler(reccomment._id)}   
+              />
+            </>
+          ))} 
+      
     </>
   )
 }
