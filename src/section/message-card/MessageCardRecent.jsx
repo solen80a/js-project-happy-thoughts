@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import { CommentCard } from "../comment-card/CommentCard";
-
+import moment from "moment";
 
 
 
@@ -17,6 +17,7 @@ export const MessageCardRecent = () => {
       
   }, []);
 
+ 
   return (
     <>
       
@@ -26,7 +27,7 @@ export const MessageCardRecent = () => {
         key={reccomment._id}
         id={reccomment._id}    
         text={reccomment.message}
-        timestamp={reccomment.createdAt}
+        timestamp={moment(reccomment.createdAt).fromNow()}
         likes={reccomment.hearts}    
         />
       </>
