@@ -51,7 +51,6 @@ export const Cards = () => {
       timestamp: moment().fromNow(),
       likes: 0,
       liked: false,
-      newLiked: false,
     }
 
     setMessages((prev) => [newMessage, ...prev])
@@ -123,7 +122,7 @@ export const Cards = () => {
             text={message.text}
             timestamp={message.timestamp}
             likes={message.likes}
-            newLiked={message.liked}
+            liked={message.liked}
             likeHandeler={() => likeHandeler(message.id)}
           />
 
