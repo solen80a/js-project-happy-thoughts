@@ -15,14 +15,20 @@ export const Cards = () => {
 
   useEffect(() => {
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
-      .then(res => res.json())      
+      .then(res => res.json())
       .then(json => {
-        console.log(json);
-        setRecentComments(json)
+        console.log(json)
+        const normalized = json.map((item) => ({
+          id: item._id,
+          text: item.message.trim(),
+          timestamp: moment(item.createdAt).fromNow(),
+          likes: item.hearts,
+          liked: false
+        }))
+        setRecentComments(normalized)
       })
-      
   }, []);
- 
+
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -45,6 +51,7 @@ export const Cards = () => {
       timestamp: moment().fromNow(),
       likes: 0,
       liked: false,
+      newLiked: false,
     }
 
     setMessages((prev) => [newMessage, ...prev])
@@ -52,33 +59,50 @@ export const Cards = () => {
   }
 
   const likeHandeler = (id) => {
-    if (setMessages || setRecentComments){
+    if (setMessages) {
       setMessages((prevMessages) =>
-      prevMessages.map((message) =>
-        message.id === id
-          ? {
+        prevMessages.map((message) =>
+          message.id === id
+            ? {
               ...message,
               liked: !message.liked,
               likes: message.liked ? message.likes - 1 : message.likes + 1,
             }
-          : message
-      )
-    );
-  }
-//   if (setRecentComments){
-//     setRecentComments((prevMessages) =>
-//     prevMessages.map((message) =>
-//       message.id === id
-//         ? {
-//             ...message,
-//             liked: !message.liked,
-//             likes: message.liked ? message.likes - 1 : message.likes + 1,
-//           }
-//         : message
-//     )
-//   );
-// }
+            : message
+        )
+      );
+    }
+    if (setRecentComments) {
+      setRecentComments((prevMessages) =>
+        prevMessages.map((message) =>
+          message.id === id
+            ? {
+              ...message,
+              liked: !message.liked,
+              likes: message.liked ? message.likes - 1 : message.likes + 1,
+            }
+            : message
+        )
+      );
+    }
   };
+
+
+
+  //   if (setRecentComments){
+  //     setRecentComments((prevMessages) =>
+  //     prevMessages.map((message) =>
+  //       message.id === id
+  //         ? {
+  //             ...message,
+  //             liked: !message.liked,
+  //             likes: message.liked ? message.likes - 1 : message.likes + 1,
+  //           }
+  //         : message
+  //     )
+  //   );
+  // }
+
 
   //#endregion
 
@@ -99,29 +123,30 @@ export const Cards = () => {
             text={message.text}
             timestamp={message.timestamp}
             likes={message.likes}
-            liked={message.liked}
+            newLiked={message.liked}
             likeHandeler={() => likeHandeler(message.id)}
-             />          
+          />
 
         </>
       ))}
 
-       {recentComments.map((reccomment) => (  
-            <>  
-            <CommentCard 
-              key={reccomment._id}                 
-              text={reccomment.message.trim()}
-              timestamp={moment(reccomment.createdAt).fromNow()}
-              likes={reccomment.hearts} 
-              // vill ju inte att den ska vara markerad om inte 
-              // jag likat, vilket den är nu
-              liked={reccomment.hearts >0 ? true : false} 
-              //liked={reccomment.hearts}
-              likeHandeler={() => likeHandeler(reccomment._id)}   
-              />
-            </>
-          ))} 
-      
+      {recentComments.map((comment) => (
+        <>
+          <CommentCard
+            key={comment.id}
+            text={comment.text}
+            timestamp={comment.timestamp}
+            likes={comment.likes}
+            // vill ju inte att den ska vara markerad om inte 
+            // jag likat, vilket den är nu
+            liked={comment.liked}
+            // liked={reccomment.hearts > 0 ? true : false}
+            //liked={reccomment.hearts}
+            likeHandeler={() => likeHandeler(comment.id)}
+          />
+        </>
+      ))}
+
     </>
   )
 }

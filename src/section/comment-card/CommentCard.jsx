@@ -86,7 +86,7 @@ const CommentCardFooter = styled.footer`
 
 //#region ---- FUNCTIONS ----
 
-export const CommentCard = ({text, timestamp, likeHandeler, likes, liked }) => {
+export const CommentCard = ({ text, timestamp, likeHandeler, likes, liked }) => {
 
   // const [like, setLike] = useState(0)
   // const [likeColor, setLikeColor] = useState(false)  
@@ -99,7 +99,7 @@ export const CommentCard = ({text, timestamp, likeHandeler, likes, liked }) => {
   //   )
   // }
 
-  
+
 
 
   return (
