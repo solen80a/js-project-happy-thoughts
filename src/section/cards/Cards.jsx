@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { MessageCard } from "../message-card/MessageCard"
 import { CommentCard } from "../comment-card/CommentCard";
 import moment from 'moment';
+import { Loader } from "../../components/Loader";
 
 //#region --- FUNCTIONS ---
 export const Cards = () => {
@@ -12,10 +13,18 @@ export const Cards = () => {
   // const [maxCharacterIndicator, setMaxCharacterIndicator] = useState(false)
   // const [CharacterCount, setCharacterCount] = useState(0) 
   const [recentComments, setRecentComments] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
-      .then(res => res.json())
+    setLoading(true);
+
+    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")      
+      .then(res => {        
+        if(!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json()
+        })
       .then(json => {
         console.log(json)
         const normalized = json.map((item) => ({
@@ -27,7 +36,16 @@ export const Cards = () => {
         }))
         setRecentComments(normalized)
       })
+      .catch(error => {
+        console.error('Fetch error:', error.message);
+      })
+      .finally(() => {
+        console.log('Fetch operation finished (success or error).');
+        setLoading(false);        
+      });
   }, []);
+
+ 
 
 
   const submitHandler = (event) => {
@@ -104,6 +122,10 @@ export const Cards = () => {
 
 
   //#endregion
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <>
