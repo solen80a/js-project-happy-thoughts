@@ -12,7 +12,7 @@ export const ErrorHandeler = ({ userInput }) => {
   let characterErrorMessage = "";
   let isError = false;
 
-  if (userInput.length < 6) {
+  if (userInput.length >= 1 && userInput.length < 6) {
     characterErrorMessage = ": You need to enter more than 5 characters!";
     isError = true;
   } else if (userInput.length > 140) {
