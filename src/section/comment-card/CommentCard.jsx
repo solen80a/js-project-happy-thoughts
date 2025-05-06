@@ -19,6 +19,10 @@ const CommentCardWrapper = styled.div`
     width: 620px;    
   }
 
+  p {
+   overflow-wrap: break-word;
+  }
+
   button {
     background-color: #eeeeee;
     border: none;
