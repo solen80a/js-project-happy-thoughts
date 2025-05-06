@@ -8,8 +8,8 @@ export const Cards = () => {
 
   const [userInput, setUserInput] = useState("")
   const [messages, setMessages] = useState([])
-  const [maxCharacterMessage, setMaxCharacterMessage] = useState("")
-  const [maxCharacterIndicator, setMaxCharacterIndicator] = useState(false)
+  // const [maxCharacterMessage, setMaxCharacterMessage] = useState("")
+  // const [maxCharacterIndicator, setMaxCharacterIndicator] = useState(false)
   // const [CharacterCount, setCharacterCount] = useState(0) 
   const [recentComments, setRecentComments] = useState([]);
 
@@ -36,14 +36,14 @@ export const Cards = () => {
     if (userInput.trim() === "") //The Trim takes away all the spaces
       return
 
-    if (userInput.length >= 70) {
-      setMaxCharacterMessage(`: You entered to many characters!`)
-      setMaxCharacterIndicator(true)
-      return
-    } else {
-      setMaxCharacterMessage("")
-      setMaxCharacterIndicator(false)
-    }
+    // if (userInput.length >= 70) {
+    //   setMaxCharacterMessage(`: You entered to many characters!`)
+    //   setMaxCharacterIndicator(true)
+    //   return
+    // } else {
+    //   setMaxCharacterMessage("")
+    //   setMaxCharacterIndicator(false)
+    // }
 
     const newMessage = {
       id: Date.now(), // This will be a uniqe ID
@@ -109,11 +109,12 @@ export const Cards = () => {
     <>
     <section>
       < MessageCard
-        input={userInput}
-        setInput={setUserInput}
+        userInput={userInput}
+        setUserInput={setUserInput}
         comment={submitHandler}
-        maxCharacters={maxCharacterMessage}
-        maxCharacterIndicator={maxCharacterIndicator}
+        // maxCharacters={maxCharacterMessage}
+        // maxCharacterIndicator={maxCharacterIndicator}
+        
       />
     </section>
     <section>

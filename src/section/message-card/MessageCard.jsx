@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ErrorHandeler } from "../../components/ErrorHandeler";
 
 //#region ---- STYLING ----
 
@@ -26,7 +27,7 @@ padding-bottom: 35px;
 } */
 
 textarea {
-border: solid 2px ${(props) => (props.maxCharacterIndicator ? "red" : "white")};
+/* border: solid 2px ${(props) => (props.maxCharacterIndicator ? "red" : "white")}; */
 height: 80px;
 width: 100%;
 padding: 10px 20px;
@@ -55,13 +56,13 @@ width: 620px;
 }
 `
 
-const ErrorMessage = styled.p`
-color: ${(props) => (props.maxCharacterIndicator ? "red" : "black")};
-text-align: right;
-margin: 0;
-padding: 0;
-max-width: 150px;
-`
+// const ErrorMessage = styled.p`
+// color: ${(props) => (props.maxCharacterIndicator ? "red" : "black")};
+// text-align: right;
+// margin: 0;
+// padding: 0;
+// max-width: 150px;
+// `
 
 const ExtraWrapper = styled.div`
 display: flex;
@@ -73,10 +74,10 @@ justify-content: space-between;
 
 //#region ---- FUNCTIONS ----
 
-export const MessageCard = ({ input, setInput, comment, maxCharacters, maxCharacterIndicator }) => {
+export const MessageCard = ({ userInput, setUserInput, comment }) => {
 
   const handleSubmit = (event) => {
-    comment(event, input);
+    comment(event, userInput);
   };
 
   //#endregion
@@ -91,13 +92,13 @@ export const MessageCard = ({ input, setInput, comment, maxCharacters, maxCharac
     <>
       <form
         onSubmit={handleSubmit}>
-        <MessageCardWrapper maxCharacterIndicator={maxCharacterIndicator}>
+        <MessageCardWrapper>
           <p>What´s making you happy right now?</p>
           <label>      
             <textarea
-              //maxLength={100}
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
+              maxLength={10}              
+              value={userInput}
+              onChange={(event) => setUserInput(event.target.value)}
               placeholder="Write something happy!"
               onKeyDown={EnterPress}
             ></textarea>
@@ -106,10 +107,11 @@ export const MessageCard = ({ input, setInput, comment, maxCharacters, maxCharac
             <button 
               type="submit" 
               // Submit disabled if less the 5 or more then 140 characters are added
-              disabled={input.length <= 5 || input.length >= 141}
+              disabled={userInput.length <= 5 || userInput.length >= 141}
               >
-                ❤️ Send Happy Thoughts ❤️</button>
-            <ErrorMessage maxCharacterIndicator={maxCharacterIndicator}>{input.length}/70{maxCharacters}</ErrorMessage>
+                ❤️ Send Happy Thoughts ❤️</button>                
+            {/* <ErrorMessage maxCharacterIndicator={maxCharacterIndicator}>{input.length}/70{maxCharacters}</ErrorMessage> */}
+           <ErrorHandeler userInput={userInput}/>
           </ExtraWrapper>
         </MessageCardWrapper>
 
