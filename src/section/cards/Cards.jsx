@@ -107,6 +107,7 @@ export const Cards = () => {
 
   return (
     <>
+    <section>
       < MessageCard
         input={userInput}
         setInput={setUserInput}
@@ -114,7 +115,8 @@ export const Cards = () => {
         maxCharacters={maxCharacterMessage}
         maxCharacterIndicator={maxCharacterIndicator}
       />
-
+    </section>
+    <section>
       {messages.map((message) => (
         <>
           <CommentCard
@@ -145,7 +147,7 @@ export const Cards = () => {
           />
         </>
       ))}
-
+    </section>
     </>
   )
 }

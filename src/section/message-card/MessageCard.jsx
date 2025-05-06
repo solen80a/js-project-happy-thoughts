@@ -103,7 +103,12 @@ export const MessageCard = ({ input, setInput, comment, maxCharacters, maxCharac
             ></textarea>
           </label>
           <ExtraWrapper>
-            <button type="submit">❤️ Send Happy Thoughts ❤️</button>
+            <button 
+              type="submit" 
+              // Submit disabled if less the 5 or more then 140 characters are added
+              disabled={input.length <= 5 || input.length >= 141}
+              >
+                ❤️ Send Happy Thoughts ❤️</button>
             <ErrorMessage maxCharacterIndicator={maxCharacterIndicator}>{input.length}/70{maxCharacters}</ErrorMessage>
           </ExtraWrapper>
         </MessageCardWrapper>
