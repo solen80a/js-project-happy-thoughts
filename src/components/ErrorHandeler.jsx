@@ -2,20 +2,23 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const ErrorMessage = styled.p`
-color: ${(props) => (props.maxCharacterIndicator ? "red" : "black")};
+/* color: ${(props) => (props.maxCharacterIndicator ? "red" : "black")}; */
 text-align: right;
 margin: 0;
 padding: 0;
 max-width: 150px;
 `
 
-export const ErrorHandeler = ( userInput ) => {
+export const ErrorHandeler = ( {userInput} ) => {
 
-// const [maxCharacterMessage, setMaxCharacterMessage] = useState("")
-// const [maxCharacterIndicator, setMaxCharacterIndicator] = useState(false)
+const [maxCharacterMessage, setMaxCharacterMessage] = useState("")
+//const [maxCharacterIndicator, setMaxCharacterIndicator] = useState(false)
+//const [value, setValue] = useState(""); 
 
-let maxCharacterMessage = "hejhej" 
+//let maxCharacterMessage = "hejhej" 
 // let maxCharacterIndicator =
+
+const handleChange = (e) => {userInput(e.target.value); 
 
 
   if (userInput.length < 5) {
@@ -32,8 +35,14 @@ let maxCharacterMessage = "hejhej"
     maxCharacterMessage("")
     // setMaxCharacterIndicator(false)
   }
+} 
 
   return(
-    <ErrorMessage>{userInput.length}/70 {maxCharacterMessage}</ErrorMessage>
+    <ErrorMessage handleChange={handleChange}>
+      
+      {userInput.length}/70 {maxCharacterMessage}
+      
+    
+    </ErrorMessage>
   )
 }

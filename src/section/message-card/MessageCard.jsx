@@ -74,7 +74,7 @@ justify-content: space-between;
 
 //#region ---- FUNCTIONS ----
 
-export const MessageCard = ({ userInput, setUserInput, comment }) => {
+export const MessageCard = ({ userInput, setUserInput, comment, handleChange }) => {
 
   const handleSubmit = (event) => {
     comment(event, userInput);
@@ -111,7 +111,7 @@ export const MessageCard = ({ userInput, setUserInput, comment }) => {
               >
                 ❤️ Send Happy Thoughts ❤️</button>                
             {/* <ErrorMessage maxCharacterIndicator={maxCharacterIndicator}>{input.length}/70{maxCharacters}</ErrorMessage> */}
-           <ErrorHandeler userInput={userInput}/>
+           <ErrorHandeler userInput={userInput} setUserInput={setUserInput}/>
           </ExtraWrapper>
         </MessageCardWrapper>
 
