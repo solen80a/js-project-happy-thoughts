@@ -15,14 +15,14 @@ export const ErrorHandeler = ({ userInput }) => {
   if (userInput.length >= 1 && userInput.length < 6) {
     characterErrorMessage = ": You need to enter more than 5 characters!";
     isError = true;
-  } else if (userInput.length > 140) {
+  } else if (userInput.length > 139) {
     characterErrorMessage = ": You can't enter more than 140 characters!";
     isError = true;
   }
 
   return (
     <ErrorMessage isError={isError}>
-      {userInput.length}/70 {characterErrorMessage}
+      {userInput.length}/140 {characterErrorMessage}
     </ErrorMessage>
   );
 };

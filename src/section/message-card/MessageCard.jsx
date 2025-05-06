@@ -83,10 +83,11 @@ export const MessageCard = ({ userInput, setUserInput, comment, handleChange }) 
   //#endregion
 
   const EnterPress = (e) => {
-      if (e.keyCode === 13 && e.shiftKey == false) { //keyCode 13 is the enter key
-        e.preventDefault(); 
-        handleSubmit(e); // Submit when Enter is pressed       
-      }}
+    if (e.keyCode === 13 && e.shiftKey == false) { //keyCode 13 is the enter key
+      e.preventDefault();
+      handleSubmit(e); // Submit when Enter is pressed       
+    }
+  }
 
   return (
     <>
@@ -94,9 +95,9 @@ export const MessageCard = ({ userInput, setUserInput, comment, handleChange }) 
         onSubmit={handleSubmit}>
         <MessageCardWrapper>
           <p>What´s making you happy right now?</p>
-          <label>      
+          <label>
             <textarea
-              maxLength={10}              
+              maxLength={140}
               value={userInput}
               onChange={(event) => setUserInput(event.target.value)}
               placeholder="Write something happy!"
@@ -104,14 +105,14 @@ export const MessageCard = ({ userInput, setUserInput, comment, handleChange }) 
             ></textarea>
           </label>
           <ExtraWrapper>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               // Submit disabled if less the 5 or more then 140 characters are added
               disabled={userInput.length <= 5 || userInput.length >= 141}
-              >
-                ❤️ Send Happy Thoughts ❤️</button>                
+            >
+              ❤️ Send Happy Thoughts ❤️</button>
             {/* <ErrorMessage maxCharacterIndicator={maxCharacterIndicator}>{input.length}/70{maxCharacters}</ErrorMessage> */}
-           <ErrorHandeler userInput={userInput} setUserInput={setUserInput}/>
+            <ErrorHandeler userInput={userInput} setUserInput={setUserInput} />
           </ExtraWrapper>
         </MessageCardWrapper>
 
