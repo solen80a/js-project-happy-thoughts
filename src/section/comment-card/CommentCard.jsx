@@ -106,13 +106,8 @@ const CommentCardFooter = styled.footer`
 
 //#region ---- FUNCTIONS ----
 
-
 const likeHandeler = (id, setMessages, setRecentComments) => {
 
-  // console.log("hej");
-  // console.log(`hello ${id}`);
-  // console.log(`hello ${setMessages}`);
-  // console.log(`hello ${setRecentComments}`);
 
   if (setMessages) {
     console.log("testing")
@@ -142,6 +137,14 @@ const likeHandeler = (id, setMessages, setRecentComments) => {
       )
     );
   }
+
+
+  fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${id}/like`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
 };
 
 //#endregion

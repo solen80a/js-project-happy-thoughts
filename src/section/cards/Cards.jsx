@@ -84,43 +84,12 @@ export const Cards = () => {
     setUserInput("")
 
   }
-
-  // const likeHandeler = (id) => {
-  //   if (setMessages) {
-  //     setMessages((prevMessages) =>
-  //       prevMessages.map((message) =>
-  //         message.id === id
-  //           ? {
-  //             ...message,
-  //             liked: !message.liked,
-  //             likes: message.liked ? message.likes - 1 : message.likes + 1,
-  //           }
-  //           : message
-  //       )
-  //     );
-  //   }
-  //   if (setRecentComments) {
-  //     setRecentComments((prevMessages) =>
-  //       prevMessages.map((message) =>
-  //         message.id === id
-  //           ? {
-  //             ...message,
-  //             liked: !message.liked,
-  //             likes: message.liked ? message.likes - 1 : message.likes + 1,
-  //           }
-  //           : message
-  //       )
-  //     );
-  //   }
-  // };
-
+  
    //#endregion
 
   if (loading) {
    return <Loader />;
   }
-
- 
 
   return (
     <>
@@ -131,38 +100,22 @@ export const Cards = () => {
           comment={submitHandler}
         />
       </section>
+      
       <section>
-        {messages.map((message, index) => (
-          <CommentCard
-            key={message.id}
-            //id={message.id}
-            text={message.text}
-            timestamp={message.timestamp}
-            likes={message.likes}
-            liked={message.liked}
-            // likeHandeler={() => likeHandeler(message.id)}
-            setMessages={setMessages}
-            setRecentComments={setRecentComments}
-            isNewComment={index === 0}
-          />
-        ))}
-
-        {recentComments.map((comment) => (
-          <>
-            <CommentCard
-              key={comment.id}
-              id={comment.id}
-              text={comment.text}
-              timestamp={comment.timestamp}
-              likes={comment.likes}
-              liked={comment.liked}
-              //likeHandeler={() => likeHandeler(comment.id)}
-              setMessages={setMessages}
-              setRecentComments={setRecentComments}
-            />
-          </>
-        ))}
-      </section>      
+  {[...messages, ...recentComments].map((item, index) => (
+    <CommentCard
+      key={item.id}
+      id={item.id}
+      text={item.text}
+      timestamp={item.timestamp}
+      likes={item.likes}
+      liked={item.liked}
+      setMessages={setMessages}
+      setRecentComments={setRecentComments}
+      isNewComment={index === 0} // Optional: Only mark the very first item as new
+    />
+  ))}
+</section>
     </>
   )
 }
