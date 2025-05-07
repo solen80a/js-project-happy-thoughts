@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ErrorHandeler } from "../../components/ErrorHandeler";
+import { useEffect } from "react";
 
 //#region ---- STYLING ----
 
@@ -74,13 +75,25 @@ justify-content: space-between;
 
 //#region ---- FUNCTIONS ----
 
-export const MessageCard = ({ userInput, setUserInput, comment, handleChange }) => {
+export const MessageCard = ({ userInput, setUserInput, comment }) => {
 
   const handleSubmit = (event) => {
+    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
+      method: "POST",
+      body: JSON.stringify({
+      message: userInput,
+    }),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((res) => res.json())
+    .then((newThought) => {       
+      //setMessages((previousThoughts) => [newThought, ...previousThoughts])
+      console.log(newThought)
+    })  
     comment(event, userInput);
-  };
 
-  //#endregion
+          
+  };
 
   const EnterPress = (e) => {
     if (e.keyCode === 13 && e.shiftKey == false) { //keyCode 13 is the enter key
@@ -88,6 +101,8 @@ export const MessageCard = ({ userInput, setUserInput, comment, handleChange }) 
       handleSubmit(e); // Submit when Enter is pressed       
     }
   }
+
+  //#endregion
 
   return (
     <>

@@ -12,10 +12,20 @@ export const Cards = () => {
   const [recentComments, setRecentComments] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const apiUrl = "https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts"
+
+  // const newMessage = {
+  //     id: Date.now(), // This will be a uniqe ID
+  //     text: userInput.trim(),
+  //     timestamp: moment().fromNow(),
+  //     likes: 0,
+  //     liked: false,
+  //   }
+
   useEffect(() => {
     setLoading(true);
 
-    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
+    fetch(apiUrl)
       .then(res => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
@@ -40,6 +50,22 @@ export const Cards = () => {
       });
   }, []);
 
+//  const postMessageToAPI = () => {
+
+//     fetch(apiUrl, {
+//         method: "POST",
+//         body: JSON.stringify({
+//         message: "svejsan",
+//       }),
+//       headers: { "Content-Type": "application/json" },
+//     })
+//       .then((res) => res.json())
+//       .then((newThought) => {       
+//         //setMessages((previousThoughts) => [newThought, ...previousThoughts])
+//         console.log(newThought)
+//       })  
+//   }
+
   const submitHandler = (event) => {
     event.preventDefault();
 
@@ -56,6 +82,7 @@ export const Cards = () => {
 
     setMessages((prev) => [newMessage, ...prev])
     setUserInput("")
+
   }
 
   const likeHandeler = (id) => {
@@ -87,16 +114,18 @@ export const Cards = () => {
     }
   };
 
+   //#endregion
+
   if (loading) {
-    return <Loader />;
+   return <Loader />;
   }
 
-  //#endregion
+ 
 
   return (
     <>
       <section>
-        < MessageCard
+        < MessageCard 
           userInput={userInput}
           setUserInput={setUserInput}
           comment={submitHandler}
