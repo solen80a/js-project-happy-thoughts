@@ -74,7 +74,7 @@ justify-content: space-between;
 
 //#region ---- FUNCTIONS ----
 
-export const MessageCard = ({ userInput, setUserInput, comment }) => {
+export const MessageCard = ({ userInput, setUserInput, comment, setMessages }) => {
 
   const handleSubmit = (event) => {
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
@@ -89,9 +89,7 @@ export const MessageCard = ({ userInput, setUserInput, comment }) => {
       //setMessages((previousThoughts) => [newThought, ...previousThoughts])
       console.log(newThought)
     })  
-    comment(event, userInput);
-
-          
+    comment(event, userInput);          
   };
 
   const EnterPress = (e) => {
