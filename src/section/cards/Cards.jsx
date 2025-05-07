@@ -18,13 +18,13 @@ export const Cards = () => {
   useEffect(() => {
     setLoading(true);
 
-    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")      
-      .then(res => {        
-        if(!res.ok) {
+    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
+      .then(res => {
+        if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         return res.json()
-        })
+      })
       .then(json => {
         console.log(json)
         const normalized = json.map((item) => ({
@@ -41,11 +41,11 @@ export const Cards = () => {
       })
       .finally(() => {
         console.log('Fetch operation finished (success or error).');
-        setLoading(false);        
+        setLoading(false);
       });
   }, []);
 
- 
+
 
 
   const submitHandler = (event) => {
@@ -129,19 +129,18 @@ export const Cards = () => {
 
   return (
     <>
-    <section>
-      < MessageCard
-        userInput={userInput}
-        setUserInput={setUserInput}
-        comment={submitHandler}
+      <section>
+        < MessageCard
+          userInput={userInput}
+          setUserInput={setUserInput}
+          comment={submitHandler}
         // maxCharacters={maxCharacterMessage}
         // maxCharacterIndicator={maxCharacterIndicator}
-        
-      />
-    </section>
-    <section>
-      {messages.map((message) => (
-        <>
+
+        />
+      </section>
+      <section>
+        {messages.map((message, index) => (
           <CommentCard
             key={message.id}
             text={message.text}
@@ -149,28 +148,27 @@ export const Cards = () => {
             likes={message.likes}
             liked={message.liked}
             likeHandeler={() => likeHandeler(message.id)}
+            isNewComment={index === 0}
           />
+        ))}
 
-        </>
-      ))}
-
-      {recentComments.map((comment) => (
-        <>
-          <CommentCard
-            key={comment.id}
-            text={comment.text}
-            timestamp={comment.timestamp}
-            likes={comment.likes}
-            // vill ju inte att den ska vara markerad om inte 
-            // jag likat, vilket den är nu
-            liked={comment.liked}
-            // liked={reccomment.hearts > 0 ? true : false}
-            //liked={reccomment.hearts}
-            likeHandeler={() => likeHandeler(comment.id)}
-          />
-        </>
-      ))}
-    </section>
+        {recentComments.map((comment) => (
+          <>
+            <CommentCard
+              key={comment.id}
+              text={comment.text}
+              timestamp={comment.timestamp}
+              likes={comment.likes}
+              // vill ju inte att den ska vara markerad om inte 
+              // jag likat, vilket den är nu
+              liked={comment.liked}
+              // liked={reccomment.hearts > 0 ? true : false}
+              //liked={reccomment.hearts}
+              likeHandeler={() => likeHandeler(comment.id)}
+            />
+          </>
+        ))}
+      </section>
     </>
   )
 }
