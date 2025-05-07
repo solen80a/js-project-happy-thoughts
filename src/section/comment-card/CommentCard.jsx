@@ -6,10 +6,10 @@ const CommentCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: left;
-  border: 1px solid #000;  
+  border: 1px solid #000;
   box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
   width: 320px;
-  margin: 28px auto; 
+  margin: 28px auto;
   padding: 12px 18px;
   gap: 12px;
   animation: ${({ isNewComment }) => (isNewComment ? 'popComment 0.6s ease-out forwards' : 'none')};

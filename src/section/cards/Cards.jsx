@@ -23,7 +23,6 @@ export const Cards = () => {
         return res.json()
       })
       .then(json => {
-
         const normalized = json.map((item) => ({
           id: item._id,
           text: item.message.trim(),
