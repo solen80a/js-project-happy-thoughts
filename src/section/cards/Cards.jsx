@@ -8,21 +8,22 @@ import { Loader } from "../../components/Loader";
 export const Cards = () => {
 
   const [userInput, setUserInput] = useState("")
-  const [messages, setMessages] = useState([])  
+  const [messages, setMessages] = useState([])
   const [recentComments, setRecentComments] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
 
-    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")      
-      .then(res => {        
-        if(!res.ok) {
+    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
+      .then(res => {
+        if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         return res.json()
-        })
-      .then(json => {        
+      })
+      .then(json => {
+
         const normalized = json.map((item) => ({
           id: item._id,
           text: item.message.trim(),
@@ -35,11 +36,10 @@ export const Cards = () => {
       .catch(error => {
         console.error('Fetch error:', error.message);
       })
-      .finally(() => {        
-        setLoading(false);        
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
-
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -47,7 +47,7 @@ export const Cards = () => {
     if (userInput.trim() === "") //The Trim takes away all the spaces
       return
 
-   const newMessage = {
+    const newMessage = {
       id: Date.now(), // This will be a uniqe ID
       text: userInput.trim(),
       timestamp: moment().fromNow(),
@@ -96,16 +96,15 @@ export const Cards = () => {
 
   return (
     <>
-    <section>
-      < MessageCard
-        userInput={userInput}
-        setUserInput={setUserInput}
-        comment={submitHandler} 
-      />
-    </section>
-    <section>
-      {messages.map((message) => (
-        <>
+      <section>
+        < MessageCard
+          userInput={userInput}
+          setUserInput={setUserInput}
+          comment={submitHandler}
+        />
+      </section>
+      <section>
+        {messages.map((message, index) => (
           <CommentCard
             key={message.id}
             text={message.text}
@@ -113,24 +112,37 @@ export const Cards = () => {
             likes={message.likes}
             liked={message.liked}
             likeHandeler={() => likeHandeler(message.id)}
+            isNewComment={index === 0}
           />
+        ))}
 
-        </>
-      ))}
-
-      {recentComments.map((comment) => (
-        <>
-          <CommentCard
-            key={comment.id}
-            text={comment.text}
-            timestamp={comment.timestamp}
-            likes={comment.likes}           
-            liked={comment.liked}            
-            likeHandeler={() => likeHandeler(comment.id)}
-          />
-        </>
-      ))}
-    </section>
+        {recentComments.map((comment) => (
+          <>
+            <CommentCard
+              key={comment.id}
+              text={comment.text}
+              timestamp={comment.timestamp}
+              likes={comment.likes}
+              liked={comment.liked}
+              likeHandeler={() => likeHandeler(comment.id)}
+            />
+          </>
+        ))}
+      </section>
+      <section>
+        {recentComments.map((comment) => (
+          <>
+            <CommentCard
+              key={comment.id}
+              text={comment.text}
+              timestamp={comment.timestamp}
+              likes={comment.likes}
+              liked={comment.liked}
+              likeHandeler={() => likeHandeler(comment.id)}
+            />
+          </>
+        ))}
+      </section>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 //#region ---- STYLING ----
@@ -13,7 +13,31 @@ const CommentCardWrapper = styled.div`
   margin: 28px auto; 
   padding: 12px 18px;
   gap: 12px;
-  transition: ease 1s;
+  animation: ${({ isNewComment }) => (isNewComment ? 'popComment 0.6s ease-out forwards' : 'none')};
+
+  @keyframes popComment {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 1;
+    }
+    70% {
+      transform: scale(0.94);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
   @media (min-width: 640px) {
     width: 620px;    
@@ -90,7 +114,7 @@ const CommentCardFooter = styled.footer`
 
 //#region ---- FUNCTIONS ----
 
-export const CommentCard = ({ text, timestamp, likeHandeler, likes, liked }) => {
+export const CommentCard = ({ text, timestamp, likeHandeler, likes, liked, isNewComment }) => {
 
   // const [like, setLike] = useState(0)
   // const [likeColor, setLikeColor] = useState(false)  
@@ -103,12 +127,8 @@ export const CommentCard = ({ text, timestamp, likeHandeler, likes, liked }) => 
   //   )
   // }
 
-
-
-
   return (
-    <CommentCardWrapper>
-
+    <CommentCardWrapper isNewComment={isNewComment}>
       <p>{text}</p>
 
       <CommentCardFooter>
