@@ -1,6 +1,21 @@
 import styled from "styled-components";
 
-const LoadWrapper = styled.span `
+const LoadWrapperSection = styled.section`
+display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const LoadWrapper = styled.div `
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: pink;
+  border: 1px solid #FE8E86;
+  width: 8em;
+  height: 8em;
+  border-radius: 50%;
+
 .loader {
   font-size: 10px;
   width: 1em;
@@ -43,9 +58,10 @@ const LoadWrapper = styled.span `
 export const Loader = () => {
 
   return (
+  <LoadWrapperSection>
     <LoadWrapper>
-      <span className="loader"></span>
+      <div className="loader"></div>    
     </LoadWrapper>
+  </LoadWrapperSection>    
   );
-
 }

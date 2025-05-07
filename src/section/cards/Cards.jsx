@@ -8,10 +8,7 @@ import { Loader } from "../../components/Loader";
 export const Cards = () => {
 
   const [userInput, setUserInput] = useState("")
-  const [messages, setMessages] = useState([])
-  // const [maxCharacterMessage, setMaxCharacterMessage] = useState("")
-  // const [maxCharacterIndicator, setMaxCharacterIndicator] = useState(false)
-  // const [CharacterCount, setCharacterCount] = useState(0) 
+  const [messages, setMessages] = useState([])  
   const [recentComments, setRecentComments] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -25,8 +22,7 @@ export const Cards = () => {
         }
         return res.json()
         })
-      .then(json => {
-        console.log(json)
+      .then(json => {        
         const normalized = json.map((item) => ({
           id: item._id,
           text: item.message.trim(),
@@ -39,13 +35,10 @@ export const Cards = () => {
       .catch(error => {
         console.error('Fetch error:', error.message);
       })
-      .finally(() => {
-        console.log('Fetch operation finished (success or error).');
+      .finally(() => {        
         setLoading(false);        
       });
   }, []);
-
- 
 
 
   const submitHandler = (event) => {
@@ -54,16 +47,7 @@ export const Cards = () => {
     if (userInput.trim() === "") //The Trim takes away all the spaces
       return
 
-    // if (userInput.length >= 70) {
-    //   setMaxCharacterMessage(`: You entered to many characters!`)
-    //   setMaxCharacterIndicator(true)
-    //   return
-    // } else {
-    //   setMaxCharacterMessage("")
-    //   setMaxCharacterIndicator(false)
-    // }
-
-    const newMessage = {
+   const newMessage = {
       id: Date.now(), // This will be a uniqe ID
       text: userInput.trim(),
       timestamp: moment().fromNow(),
@@ -104,28 +88,11 @@ export const Cards = () => {
     }
   };
 
-
-
-  //   if (setRecentComments){
-  //     setRecentComments((prevMessages) =>
-  //     prevMessages.map((message) =>
-  //       message.id === id
-  //         ? {
-  //             ...message,
-  //             liked: !message.liked,
-  //             likes: message.liked ? message.likes - 1 : message.likes + 1,
-  //           }
-  //         : message
-  //     )
-  //   );
-  // }
-
-
-  //#endregion
-
   if (loading) {
     return <Loader />;
   }
+
+  //#endregion
 
   return (
     <>
@@ -133,10 +100,7 @@ export const Cards = () => {
       < MessageCard
         userInput={userInput}
         setUserInput={setUserInput}
-        comment={submitHandler}
-        // maxCharacters={maxCharacterMessage}
-        // maxCharacterIndicator={maxCharacterIndicator}
-        
+        comment={submitHandler} 
       />
     </section>
     <section>
@@ -160,12 +124,8 @@ export const Cards = () => {
             key={comment.id}
             text={comment.text}
             timestamp={comment.timestamp}
-            likes={comment.likes}
-            // vill ju inte att den ska vara markerad om inte 
-            // jag likat, vilket den är nu
-            liked={comment.liked}
-            // liked={reccomment.hearts > 0 ? true : false}
-            //liked={reccomment.hearts}
+            likes={comment.likes}           
+            liked={comment.liked}            
             likeHandeler={() => likeHandeler(comment.id)}
           />
         </>
