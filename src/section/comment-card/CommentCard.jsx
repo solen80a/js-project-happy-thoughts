@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 //#region ---- STYLING ----
@@ -29,13 +28,6 @@ const CommentCardWrapper = styled.div`
     }
     100% {
       transform: scale(1);
-    }
-  }
-
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
     }
   }
 
