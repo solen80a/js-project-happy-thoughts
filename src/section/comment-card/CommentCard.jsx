@@ -106,18 +106,56 @@ const CommentCardFooter = styled.footer`
 
 //#region ---- FUNCTIONS ----
 
-export const CommentCard = ({ text, timestamp, likeHandeler, likes, liked, isNewComment }) => {
 
-  // const [like, setLike] = useState(0)
-  // const [likeColor, setLikeColor] = useState(false)  
+const likeHandeler = (id, setMessages, setRecentComments) => {
 
-  // const likeHandeler = () => {
-  //   return (
-  //     setLike(like === 0 ? like + 1 : like - 1),
-  //     setLikeColor((prev) => !prev)
+  // console.log("hej");
+  // console.log(`hello ${id}`);
+  // console.log(`hello ${setMessages}`);
+  // console.log(`hello ${setRecentComments}`);
 
-  //   )
-  // }
+  if (setMessages) {
+    console.log("testing")
+    setMessages((prevMessages) =>
+      prevMessages.map((message) =>
+        message.id === id
+          ? {
+            ...message,
+            liked: !message.liked,
+            likes: message.liked ? message.likes - 1 : message.likes + 1,
+          }
+          : message
+      )
+    );
+  }
+  if (setRecentComments) {
+    console.log("testing")
+    setRecentComments((prevMessages) =>
+      prevMessages.map((message) =>
+        message.id === id
+          ? {
+            ...message,
+            liked: !message.liked,
+            likes: message.liked ? message.likes - 1 : message.likes + 1,
+          }
+          : message
+      )
+    );
+  }
+};
+
+//#endregion
+
+export const CommentCard = ({ text, 
+  timestamp, 
+  likes, 
+  liked, 
+  isNewComment,
+  id, 
+  setMessages, 
+  setRecentComments  
+}) => {
+
 
   return (
     <CommentCardWrapper isNewComment={isNewComment}>
@@ -127,7 +165,11 @@ export const CommentCard = ({ text, timestamp, likeHandeler, likes, liked, isNew
         <div>
           <button
             className={`like-color ${liked ? "on" : "off"}`}
-            onClick={likeHandeler}>❤️</button>
+            onClick={() => likeHandeler(id, setMessages, setRecentComments)}        
+
+         
+
+            >❤️</button>
           <p>x {likes}</p>
         </div>
         <p>{timestamp}</p>

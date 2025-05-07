@@ -85,34 +85,34 @@ export const Cards = () => {
 
   }
 
-  const likeHandeler = (id) => {
-    if (setMessages) {
-      setMessages((prevMessages) =>
-        prevMessages.map((message) =>
-          message.id === id
-            ? {
-              ...message,
-              liked: !message.liked,
-              likes: message.liked ? message.likes - 1 : message.likes + 1,
-            }
-            : message
-        )
-      );
-    }
-    if (setRecentComments) {
-      setRecentComments((prevMessages) =>
-        prevMessages.map((message) =>
-          message.id === id
-            ? {
-              ...message,
-              liked: !message.liked,
-              likes: message.liked ? message.likes - 1 : message.likes + 1,
-            }
-            : message
-        )
-      );
-    }
-  };
+  // const likeHandeler = (id) => {
+  //   if (setMessages) {
+  //     setMessages((prevMessages) =>
+  //       prevMessages.map((message) =>
+  //         message.id === id
+  //           ? {
+  //             ...message,
+  //             liked: !message.liked,
+  //             likes: message.liked ? message.likes - 1 : message.likes + 1,
+  //           }
+  //           : message
+  //       )
+  //     );
+  //   }
+  //   if (setRecentComments) {
+  //     setRecentComments((prevMessages) =>
+  //       prevMessages.map((message) =>
+  //         message.id === id
+  //           ? {
+  //             ...message,
+  //             liked: !message.liked,
+  //             likes: message.liked ? message.likes - 1 : message.likes + 1,
+  //           }
+  //           : message
+  //       )
+  //     );
+  //   }
+  // };
 
    //#endregion
 
@@ -135,11 +135,14 @@ export const Cards = () => {
         {messages.map((message, index) => (
           <CommentCard
             key={message.id}
+            //id={message.id}
             text={message.text}
             timestamp={message.timestamp}
             likes={message.likes}
             liked={message.liked}
-            likeHandeler={() => likeHandeler(message.id)}
+            // likeHandeler={() => likeHandeler(message.id)}
+            setMessages={setMessages}
+            setRecentComments={setRecentComments}
             isNewComment={index === 0}
           />
         ))}
@@ -148,29 +151,18 @@ export const Cards = () => {
           <>
             <CommentCard
               key={comment.id}
+              id={comment.id}
               text={comment.text}
               timestamp={comment.timestamp}
               likes={comment.likes}
               liked={comment.liked}
-              likeHandeler={() => likeHandeler(comment.id)}
+              //likeHandeler={() => likeHandeler(comment.id)}
+              setMessages={setMessages}
+              setRecentComments={setRecentComments}
             />
           </>
         ))}
-      </section>
-      <section>
-        {recentComments.map((comment) => (
-          <>
-            <CommentCard
-              key={comment.id}
-              text={comment.text}
-              timestamp={comment.timestamp}
-              likes={comment.likes}
-              liked={comment.liked}
-              likeHandeler={() => likeHandeler(comment.id)}
-            />
-          </>
-        ))}
-      </section>
+      </section>      
     </>
   )
 }

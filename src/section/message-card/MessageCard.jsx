@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { ErrorHandeler } from "../../components/ErrorHandeler";
-import { useEffect } from "react";
 
 //#region ---- STYLING ----
 
