@@ -124,9 +124,7 @@ export const CommentCard = ({ text,
 
     setIsButtonDisabled(true)
 
-
     if (setMessages) {
-      console.log("testing")
       setMessages((prevMessages) =>
         prevMessages.map((message) =>
           message.id === id
@@ -140,7 +138,6 @@ export const CommentCard = ({ text,
       );
     }
     if (setRecentComments) {
-      console.log("testing")
       setRecentComments((prevMessages) =>
         prevMessages.map((message) =>
           message.id === id

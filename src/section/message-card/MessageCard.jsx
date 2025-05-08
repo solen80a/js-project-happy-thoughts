@@ -58,7 +58,9 @@ justify-content: space-between;
 
 export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) => {
 
+
   const handleSubmit = (event) => {
+
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
       method: "POST",
       body: JSON.stringify({
@@ -101,7 +103,7 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
           <ExtraWrapper>
             <button
               type="submit"
-              disabled={userInput.length <= 5 || userInput.length >= 141}
+              disabled={userInput.trim().length <= 5 || userInput.trim().length >= 141}
             >
               ❤️ Send Happy Thoughts ❤️</button>
             <ErrorHandeler userInput={userInput} setUserInput={setUserInput} />

@@ -34,7 +34,6 @@ export const Cards = () => {
           liked: false
         }))
         setRecentComments(normalized)
-        console.log("Pull data", normalized)
       })
       .catch(error => {
         console.error('Fetch error:', error.message);
