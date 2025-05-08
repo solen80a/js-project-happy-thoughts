@@ -4,6 +4,7 @@ import { CommentCard } from "../comment-card/CommentCard";
 import moment from 'moment';
 import { Loader } from "../../components/Loader";
 
+
 //#region --- FUNCTIONS ---
 export const Cards = () => {
 
@@ -93,8 +94,10 @@ export const Cards = () => {
             setMessages={setMessages}
             setRecentComments={setRecentComments}
             isNewComment={index === 0} // Optional: Only mark the very first item as new
+
           />
         ))}
+
       </section>
     </>
   )

@@ -17,18 +17,16 @@ const CommentCardWrapper = styled.div`
 
   @keyframes popComment {
     0% {
-      transform: scale(0.5);
       opacity: 0;
+      transform: translateY(-20px) scale(0.95);
     }
-    50% {
-      transform: scale(1.15);
+    60% {
       opacity: 1;
-    }
-    70% {
-      transform: scale(0.94);
+      transform: translateY(10px) scale(1.02);
     }
     100% {
-      transform: scale(1);
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   }
 
@@ -53,6 +51,12 @@ const CommentCardWrapper = styled.div`
       background-color: #f0aeae;
       transform: scale(1.03);
     }
+
+    &:active {
+     box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.15),
+                inset 0 3px 6px rgba(0, 0, 0, 0.10);
+      background-color: #de8080;
+}
 
     &.like-color.on {
       background-color: pink;
