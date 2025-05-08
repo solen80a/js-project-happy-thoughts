@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 //#region ---- STYLING ----
 
@@ -106,60 +107,6 @@ const CommentCardFooter = styled.footer`
 
 //#region ---- FUNCTIONS ----
 
-const likeHandeler = (id, setMessages, setRecentComments, apiNewId) => {
-
-
-  if (setMessages) {
-    console.log("testing")
-    setMessages((prevMessages) =>
-      prevMessages.map((message) =>
-        message.id === id
-          ? {
-            ...message,
-            liked: !message.liked,
-            likes: message.liked ? message.likes - 1 : message.likes + 1,
-          }
-          : message
-      )
-    );
-  }
-  if (setRecentComments) {
-    console.log("testing")
-    setRecentComments((prevMessages) =>
-      prevMessages.map((message) =>
-        message.id === id
-          ? {
-            ...message,
-            liked: !message.liked,
-            likes: message.liked ? message.likes - 1 : message.likes + 1,
-          }
-          : message
-      )
-    );
-  }
-
-
-  if (apiNewId && apiNewId !== id) {
-    fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${apiNewId}/like`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
-
-  fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${id}/like`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-
-};
-
-//#endregion
-
 export const CommentCard = ({ text,
   timestamp,
   likes,
@@ -171,6 +118,66 @@ export const CommentCard = ({ text,
   setRecentComments
 }) => {
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false)
+
+  const likeHandeler = (id, setMessages, setRecentComments, apiNewId) => {
+
+    setIsButtonDisabled(true)
+
+
+    if (setMessages) {
+      console.log("testing")
+      setMessages((prevMessages) =>
+        prevMessages.map((message) =>
+          message.id === id
+            ? {
+              ...message,
+              liked: !message.liked,
+              likes: message.likes + 1,
+            }
+            : message
+        )
+      );
+    }
+    if (setRecentComments) {
+      console.log("testing")
+      setRecentComments((prevMessages) =>
+        prevMessages.map((message) =>
+          message.id === id
+            ? {
+              ...message,
+              liked: !message.liked,
+              likes: message.likes + 1,
+            }
+            : message
+        )
+      );
+    }
+
+
+    if (apiNewId && apiNewId !== id) {
+      fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${apiNewId}/like`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
+
+    fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${id}/like`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+
+  };
+
+  //#endregion
+
+
+
 
   return (
     <CommentCardWrapper isNewComment={isNewComment}>
@@ -179,6 +186,7 @@ export const CommentCard = ({ text,
       <CommentCardFooter>
         <div>
           <button
+            disabled={isButtonDisabled}
             className={`like-color ${liked ? "on" : "off"}`}
             onClick={() => likeHandeler(id, setMessages, setRecentComments, apiNewId)}
 
