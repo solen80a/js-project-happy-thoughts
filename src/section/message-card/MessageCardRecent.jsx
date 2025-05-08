@@ -1,39 +1,37 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { CommentCard } from "../comment-card/CommentCard";
 import moment from "moment";
-
-
 
 export const MessageCardRecent = () => {
   const [recentComments, setRecentComments] = useState([]);
 
   useEffect(() => {
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts")
-      .then(res => res.json())      
+      .then(res => res.json())
       .then(json => {
         console.log(json);
         setRecentComments(json)
       })
-      
+
   }, []);
 
- 
+
   return (
     <>
-      
-    {recentComments.map((reccomment) => (  
-      <>  
-      <CommentCard 
-        key={reccomment._id}
-        id={reccomment._id}    
-        text={reccomment.message.trim()}
-        timestamp={moment(reccomment.createdAt).fromNow()}
-        likes={reccomment.hearts} 
-        liked={reccomment.hearts >0 ? true : false} 
-          
-        />
-      </>
-    ))} 
+
+      {recentComments.map((reccomment) => (
+        <>
+          <CommentCard
+            key={reccomment._id}
+            id={reccomment._id}
+            text={reccomment.message.trim()}
+            timestamp={moment(reccomment.createdAt).fromNow()}
+            likes={reccomment.hearts}
+            liked={reccomment.hearts > 0 ? true : false}
+
+          />
+        </>
+      ))}
 
     </>
   );

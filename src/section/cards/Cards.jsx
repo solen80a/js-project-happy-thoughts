@@ -47,7 +47,7 @@ export const Cards = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (userInput.trim() === "") //The Trim takes away all the spaces
+    if (userInput.trim() === "")
       return
 
     const newMessage = {

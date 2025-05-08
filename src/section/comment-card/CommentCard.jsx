@@ -120,7 +120,10 @@ export const CommentCard = ({ text,
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false)
 
-  const likeHandeler = (id, setMessages, setRecentComments, apiNewId) => {
+  const likeHandeler = (id,
+    setMessages,
+    setRecentComments,
+    apiNewId) => {
 
     setIsButtonDisabled(true)
 
@@ -173,9 +176,6 @@ export const CommentCard = ({ text,
 
   //#endregion
 
-
-
-
   return (
     <CommentCardWrapper isNewComment={isNewComment}>
       <p>{text}</p>
@@ -186,9 +186,6 @@ export const CommentCard = ({ text,
             disabled={isButtonDisabled}
             className={`like-color ${liked ? "on" : "off"}`}
             onClick={() => likeHandeler(id, setMessages, setRecentComments, apiNewId)}
-
-
-
           >❤️</button>
           <p>x {likes}</p>
         </div>
