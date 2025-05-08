@@ -16,16 +16,6 @@ padding: 12px 18px;
 gap: 12px;
 box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
 
-
-/* input {
-border: solid 2px ${(props) => (props.maxCharacterIndicator ? "red" : "white")};
-height: 80px;
-width: 100%;
-padding: 10px 20px;
-cursor: pointer;
-padding-bottom: 35px;
-} */
-
 textarea {
 /* border: solid 2px ${(props) => (props.maxCharacterIndicator ? "red" : "white")}; */
 height: 80px;
@@ -56,14 +46,6 @@ width: 620px;
 }
 `
 
-// const ErrorMessage = styled.p`
-// color: ${(props) => (props.maxCharacterIndicator ? "red" : "black")};
-// text-align: right;
-// margin: 0;
-// padding: 0;
-// max-width: 150px;
-// `
-
 const ExtraWrapper = styled.div`
 display: flex;
 flex-direction: row;
@@ -74,22 +56,22 @@ justify-content: space-between;
 
 //#region ---- FUNCTIONS ----
 
-export const MessageCard = ({ userInput, setUserInput, comment, setMessages }) => {
+export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) => {
 
   const handleSubmit = (event) => {
     fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
       method: "POST",
       body: JSON.stringify({
-      message: userInput,
-    }),
-    headers: { "Content-Type": "application/json" },
-  })
-    .then((res) => res.json())
-    .then((newThought) => {       
-      //setMessages((previousThoughts) => [newThought, ...previousThoughts])
-      console.log(newThought)
-    })  
-    comment(event, userInput);          
+        message: userInput,
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((newThought) => {
+        setApiNewId(newThought._id)
+        // setMessages((previousThoughts) => [newThought, ...previousThoughts])
+      })
+    comment(event, userInput);
   };
 
   const EnterPress = (e) => {
@@ -119,11 +101,9 @@ export const MessageCard = ({ userInput, setUserInput, comment, setMessages }) =
           <ExtraWrapper>
             <button
               type="submit"
-              // Submit disabled if less the 5 or more then 140 characters are added
               disabled={userInput.length <= 5 || userInput.length >= 141}
             >
               ❤️ Send Happy Thoughts ❤️</button>
-            {/* <ErrorMessage maxCharacterIndicator={maxCharacterIndicator}>{input.length}/70{maxCharacters}</ErrorMessage> */}
             <ErrorHandeler userInput={userInput} setUserInput={setUserInput} />
           </ExtraWrapper>
         </MessageCardWrapper>

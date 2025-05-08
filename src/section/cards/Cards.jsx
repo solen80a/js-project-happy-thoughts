@@ -11,16 +11,9 @@ export const Cards = () => {
   const [messages, setMessages] = useState([])
   const [recentComments, setRecentComments] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [apiNewId, setApiNewId] = useState()
 
   const apiUrl = "https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts"
-
-  // const newMessage = {
-  //     id: Date.now(), // This will be a uniqe ID
-  //     text: userInput.trim(),
-  //     timestamp: moment().fromNow(),
-  //     likes: 0,
-  //     liked: false,
-  //   }
 
   useEffect(() => {
     setLoading(true);
@@ -41,30 +34,16 @@ export const Cards = () => {
           liked: false
         }))
         setRecentComments(normalized)
+        console.log("Pull data", normalized)
       })
       .catch(error => {
         console.error('Fetch error:', error.message);
       })
       .finally(() => {
         setLoading(false);
+
       });
   }, []);
-
-//  const postMessageToAPI = () => {
-
-//     fetch(apiUrl, {
-//         method: "POST",
-//         body: JSON.stringify({
-//         message: "svejsan",
-//       }),
-//       headers: { "Content-Type": "application/json" },
-//     })
-//       .then((res) => res.json())
-//       .then((newThought) => {       
-//         //setMessages((previousThoughts) => [newThought, ...previousThoughts])
-//         console.log(newThought)
-//       })  
-//   }
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -84,38 +63,40 @@ export const Cards = () => {
     setUserInput("")
 
   }
-  
-   //#endregion
+
+  //#endregion
 
   if (loading) {
-   return <Loader />;
+    return <Loader />;
   }
 
   return (
     <>
       <section>
-        < MessageCard 
+        < MessageCard
           userInput={userInput}
           setUserInput={setUserInput}
           comment={submitHandler}
+          setApiNewId={setApiNewId}
         />
       </section>
-      
+
       <section>
-  {[...messages, ...recentComments].map((item, index) => (
-    <CommentCard
-      key={item.id}
-      id={item.id}
-      text={item.text}
-      timestamp={item.timestamp}
-      likes={item.likes}
-      liked={item.liked}
-      setMessages={setMessages}
-      setRecentComments={setRecentComments}
-      isNewComment={index === 0} // Optional: Only mark the very first item as new
-    />
-  ))}
-</section>
+        {[...messages, ...recentComments].map((item, index) => (
+          <CommentCard
+            key={item.id}
+            id={item.id}
+            apiNewId={apiNewId}
+            text={item.text}
+            timestamp={item.timestamp}
+            likes={item.likes}
+            liked={item.liked}
+            setMessages={setMessages}
+            setRecentComments={setRecentComments}
+            isNewComment={index === 0} // Optional: Only mark the very first item as new
+          />
+        ))}
+      </section>
     </>
   )
 }

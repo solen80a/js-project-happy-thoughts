@@ -106,7 +106,7 @@ const CommentCardFooter = styled.footer`
 
 //#region ---- FUNCTIONS ----
 
-const likeHandeler = (id, setMessages, setRecentComments) => {
+const likeHandeler = (id, setMessages, setRecentComments, apiNewId) => {
 
 
   if (setMessages) {
@@ -139,7 +139,7 @@ const likeHandeler = (id, setMessages, setRecentComments) => {
   }
 
 
-  fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${id}/like`, {
+  fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${apiNewId}/like`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -149,14 +149,15 @@ const likeHandeler = (id, setMessages, setRecentComments) => {
 
 //#endregion
 
-export const CommentCard = ({ text, 
-  timestamp, 
-  likes, 
-  liked, 
+export const CommentCard = ({ text,
+  timestamp,
+  likes,
+  liked,
   isNewComment,
-  id, 
-  setMessages, 
-  setRecentComments  
+  id,
+  apiNewId,
+  setMessages,
+  setRecentComments
 }) => {
 
 
@@ -168,11 +169,11 @@ export const CommentCard = ({ text,
         <div>
           <button
             className={`like-color ${liked ? "on" : "off"}`}
-            onClick={() => likeHandeler(id, setMessages, setRecentComments)}        
+            onClick={() => likeHandeler(id, setMessages, setRecentComments, apiNewId)}
 
-         
 
-            >❤️</button>
+
+          >❤️</button>
           <p>x {likes}</p>
         </div>
         <p>{timestamp}</p>
