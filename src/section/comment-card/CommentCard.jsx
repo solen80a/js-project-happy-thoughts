@@ -139,12 +139,23 @@ const likeHandeler = (id, setMessages, setRecentComments, apiNewId) => {
   }
 
 
-  fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${apiNewId}/like`, {
+  if (apiNewId && apiNewId !== id) {
+    fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${apiNewId}/like`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${id}/like`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-  })
+  });
+
+
 };
 
 //#endregion
