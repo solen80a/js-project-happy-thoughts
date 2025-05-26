@@ -160,7 +160,7 @@ export const CommentCard = ({ text,
 
 
     if (apiNewId && apiNewId !== id) {
-      fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${apiNewId}/like`, {
+      fetch(`https://happy-thoughts-api-4ful.onrender.com/thoughts/${apiNewId}/like`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -168,7 +168,7 @@ export const CommentCard = ({ text,
       });
     }
 
-    fetch(`https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts/${id}/like`, {
+    fetch(`https://happy-thoughts-api-4ful.onrender.com/thoughts/${id}/like`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

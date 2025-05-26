@@ -61,7 +61,7 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
 
   const handleSubmit = (event) => {
 
-    fetch("https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts", {
+    fetch("https://happy-thoughts-api-4ful.onrender.com/thoughts", {
       method: "POST",
       body: JSON.stringify({
         message: userInput,

@@ -14,7 +14,8 @@ export const Cards = () => {
   const [loading, setLoading] = useState(false);
   const [apiNewId, setApiNewId] = useState()
 
-  const apiUrl = "https://happy-thoughts-ux7hkzgmwa-uc.a.run.app/thoughts"
+  const apiUrl = "https://happy-thoughts-api-4ful.onrender.com/thoughts"
+  
 
   useEffect(() => {
     setLoading(true);
