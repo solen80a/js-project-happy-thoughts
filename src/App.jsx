@@ -1,6 +1,6 @@
 import { Cards } from "./section/cards/Cards";
-import { Titlte } from "./styling/Typography"
 import { Footer } from "./section/Footer";
+import { Titlte } from "./styling/Typography"
 
 export const App = () => {
 

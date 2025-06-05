@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { useState } from "react";
+import styled from "styled-components";
 
 //#region ---- STYLING ----
 
@@ -85,10 +85,17 @@ const CommentCardWrapper = styled.div`
     }
 
     .like-color.off {
-      background-color: #eeeeee;
-}
+      background-color: #eeeeee;}
     }
   `
+
+const CommentCardHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+`  
 
 const CommentCardFooter = styled.footer`
     display: flex;
@@ -144,7 +151,7 @@ export const CommentCard = ({ text,
         )
       );
     }
-    if (setRecentComments) {
+    else if (setRecentComments) {
       setRecentComments((prevMessages) =>
         prevMessages.map((message) =>
           message.id === id
@@ -159,8 +166,9 @@ export const CommentCard = ({ text,
     }
 
 
-    if (apiNewId && apiNewId !== id) {
-      fetch(`https://happy-thoughts-api-4ful.onrender.com/thoughts/${apiNewId}/like`, {
+    else if (apiNewId && apiNewId !== id) {
+      //https://happy-thoughts-api-4ful.onrender.com/thoughts/${apiNewId}/like
+      fetch(`http://localhost:8080/thoughts/${apiNewId}/like`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -168,7 +176,7 @@ export const CommentCard = ({ text,
       });
     }
 
-    fetch(`https://happy-thoughts-api-4ful.onrender.com/thoughts/${id}/like`, {
+    fetch(`http://localhost:8080/thoughts/${apiNewId}/like`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -182,8 +190,22 @@ export const CommentCard = ({ text,
 
   return (
     <CommentCardWrapper isNewComment={isNewComment}>
-      <p>{text}</p>
-
+      
+      <CommentCardHeader>
+        <p>{text}</p>
+        <div>
+          <button> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+             <path d="M4 21h4l11.293-11.293a1 1 0 0 0 0-1.414l-2.586-2.586a1 1 0 0 0-1.414 0L4 17v4zm14.707-13.707-2.586-2.586L17 3.414l2.586 2.586-0.879 0.879z"/>
+            </svg>
+          </button>
+          <button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M9 3V4H4V6H5V19C5 20.105 5.895 21 7 21H17C18.105 21 19 20.105 19 19V6H20V4H15V3H9zM7 6H17V19H7V6z"/>
+            </svg>
+          </button>          
+        </div>       
+      </CommentCardHeader> 
       <CommentCardFooter>
         <div>
           <button
@@ -191,7 +213,7 @@ export const CommentCard = ({ text,
             className={`like-color ${liked ? "on" : "off"}`}
             onClick={() => likeHandeler(id, setMessages, setRecentComments, apiNewId)}
           >❤️</button>
-          <p>x {likes}</p>
+          <p>x {likes}</p>          
         </div>
         <p>{timestamp}</p>
       </CommentCardFooter>

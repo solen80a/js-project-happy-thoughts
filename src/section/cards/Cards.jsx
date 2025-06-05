@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { MessageCard } from "../message-card/MessageCard"
-import { CommentCard } from "../comment-card/CommentCard";
 import moment from 'moment';
-import { Loader } from "../../components/Loader";
+import { useEffect, useState } from "react";
 
+import { Loader } from "../../components/Loader";
+import { CommentCard } from "../comment-card/CommentCard";
+import { MessageCard } from "../message-card/MessageCard"
 
 //#region --- FUNCTIONS ---
 export const Cards = () => {
@@ -14,7 +14,8 @@ export const Cards = () => {
   const [loading, setLoading] = useState(false);
   const [apiNewId, setApiNewId] = useState()
 
-  const apiUrl = "https://happy-thoughts-api-4ful.onrender.com/thoughts"
+  //https://happy-thoughts-api-4ful.onrender.com/thoughts
+  const apiUrl = "http://localhost:8080/thoughts"
   
 
   useEffect(() => {

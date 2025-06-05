@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { ErrorHandeler } from "../../components/ErrorHandeler";
 
 //#region ---- STYLING ----
@@ -60,8 +61,8 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
 
 
   const handleSubmit = (event) => {
-
-    fetch("https://happy-thoughts-api-4ful.onrender.com/thoughts", {
+//https://happy-thoughts-api-4ful.onrender.com/thoughts
+    fetch("http://localhost:8080/thoughts", {
       method: "POST",
       body: JSON.stringify({
         message: userInput,
