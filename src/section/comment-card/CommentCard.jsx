@@ -156,7 +156,7 @@ export const CommentCard = ({ text,
       );
       
     }
-    else if (setRecentComments) {
+    if (setRecentComments) {
       console.log("setRecentComments")
       setRecentComments((prevMessages) =>
         prevMessages.map((message) =>
@@ -170,9 +170,7 @@ export const CommentCard = ({ text,
         )
       );
     }
-
-
-    else if (apiNewId && apiNewId !== id) {
+    if (apiNewId && apiNewId !== id) {
       //https://happy-thoughts-api-4ful.onrender.com/thoughts/${apiNewId}/like
       fetch(`${apiUrl}/${apiNewId}/like`, {
         method: "POST",
@@ -211,6 +209,25 @@ export const CommentCard = ({ text,
     });
   }
   //#endregion ---- deleteHandeler ----
+  //#region ---- editHandeler ----
+
+  //#endregion ---- editHandeler ----
+  // const editHandeler = (id) => {
+  //   if (setMessages) {
+
+  //   }
+  //   if (setRecentComments){
+
+  //   }
+
+
+  //   fetch(`${apiUrl}/${id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  // }
 
   //#endregion
 
