@@ -139,6 +139,7 @@ export const CommentCard = ({ text,
     setIsButtonDisabled(true)
 
     if (setMessages) {
+      console.log("setmessage")
       setMessages((prevMessages) =>
         prevMessages.map((message) =>
           message.id === id
@@ -150,8 +151,10 @@ export const CommentCard = ({ text,
             : message
         )
       );
+      
     }
     else if (setRecentComments) {
+      console.log("setRecentComments")
       setRecentComments((prevMessages) =>
         prevMessages.map((message) =>
           message.id === id
@@ -176,7 +179,7 @@ export const CommentCard = ({ text,
       });
     }
 
-    fetch(`http://localhost:8080/thoughts/${apiNewId}/like`, {
+    fetch(`http://localhost:8080/thoughts/${id}/like`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
