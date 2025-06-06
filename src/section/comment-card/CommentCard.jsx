@@ -129,8 +129,11 @@ export const CommentCard = ({ text,
   setRecentComments
 }) => {
 
+  const apiUrl = "http://localhost:8080/thoughts"
+
   const [isButtonDisabled, setIsButtonDisabled] = useState(false)
 
+  //#region ---- likeHandeler ----
   const likeHandeler = (id,
     setMessages,
     setRecentComments,
@@ -171,7 +174,7 @@ export const CommentCard = ({ text,
 
     else if (apiNewId && apiNewId !== id) {
       //https://happy-thoughts-api-4ful.onrender.com/thoughts/${apiNewId}/like
-      fetch(`http://localhost:8080/thoughts/${apiNewId}/like`, {
+      fetch(`${apiUrl}/${apiNewId}/like`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -179,15 +182,35 @@ export const CommentCard = ({ text,
       });
     }
 
-    fetch(`http://localhost:8080/thoughts/${id}/like`, {
+    fetch(`${apiUrl}/${id}/like`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-
   };
+
+  //#endregion ---- likeHandeler ----
+  //#region ---- deleteHandeler ----
+  const deleteHandeler = (id) => {
+    if (setMessages) {      
+      setMessages((prevMessages) =>
+        prevMessages.filter((message) => message.id !== id)            
+      )      
+    }
+    if (setRecentComments) {
+      setRecentComments((prevMessages) =>
+        prevMessages.filter((message) => message.id !== id)
+        )     
+    }
+    fetch(`${apiUrl}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+  //#endregion ---- deleteHandeler ----
 
   //#endregion
 
@@ -202,7 +225,9 @@ export const CommentCard = ({ text,
              <path d="M4 21h4l11.293-11.293a1 1 0 0 0 0-1.414l-2.586-2.586a1 1 0 0 0-1.414 0L4 17v4zm14.707-13.707-2.586-2.586L17 3.414l2.586 2.586-0.879 0.879z"/>
             </svg>
           </button>
-          <button>
+          <button
+            onClick={() => deleteHandeler(id, apiNewId)}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
               <path d="M9 3V4H4V6H5V19C5 20.105 5.895 21 7 21H17C18.105 21 19 20.105 19 19V6H20V4H15V3H9zM7 6H17V19H7V6z"/>
             </svg>
