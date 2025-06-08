@@ -209,25 +209,49 @@ export const CommentCard = ({ text,
     });
   }
   //#endregion ---- deleteHandeler ----
-  //#region ---- editHandeler ----
+  //#region ---- editHandeler ---- 
+  const [userEditInput, setUserEditInput] = useState("")
+  const [isEditing, setIsEditing] = useState(false);
 
+  const handleSave = () => {
+    setIsEditing(false);
+
+    if (setMessages) {
+      setMessages((prevMessages) => 
+      prevMessages.map((message) => message.id === id ? 
+      { ...message, message: userEditInput } : message
+      ))
+    }
+
+    if (setRecentComments) {
+      setRecentComments((prevMessages) => 
+      prevMessages.map((message) => message.id === id ? 
+      { ...message, message: userEditInput } : message
+      ))
+    }
+
+    console.log("Saving:", userEditInput);
+
+    fetch(`${apiUrl}/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ message: userEditInput, }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => console.log("API response:", data))
+    .catch((err) => console.error("API error:", err));   
+
+  };
+
+  const handleEdit = () => {
+    setUserEditInput(text)
+    setIsEditing(true);
+  };
+
+  
   //#endregion ---- editHandeler ----
-  // const editHandeler = (id) => {
-  //   if (setMessages) {
-
-  //   }
-  //   if (setRecentComments){
-
-  //   }
-
-
-  //   fetch(`${apiUrl}/${id}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  // }
 
   //#endregion
 
@@ -235,13 +259,31 @@ export const CommentCard = ({ text,
     <CommentCardWrapper isNewComment={isNewComment}>
       
       <CommentCardHeader>
-        <p>{text}</p>
+        <label>
+          {isEditing ? 
+             <textarea
+              value={userEditInput}
+              onChange={(event) => setUserEditInput(event.target.value)}
+              maxLength={140}              
+            ></textarea>
+            :  <p>{text}</p>
+          }
+        </label>
         <div>
-          <button> 
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-             <path d="M4 21h4l11.293-11.293a1 1 0 0 0 0-1.414l-2.586-2.586a1 1 0 0 0-1.414 0L4 17v4zm14.707-13.707-2.586-2.586L17 3.414l2.586 2.586-0.879 0.879z"/>
-            </svg>
+          <button
+            onClick={isEditing ? handleSave : handleEdit}
+          > 
+            {isEditing ? 
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm0 2v2H7V5h10zM5 19V5h2v4h10V5l2 2v12H5z"/>
+              </svg> 
+              : 
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M4 21h4l11.293-11.293a1 1 0 0 0 0-1.414l-2.586-2.586a1 1 0 0 0-1.414 0L4 17v4zm14.707-13.707-2.586-2.586L17 3.414l2.586 2.586-0.879 0.879z"/>
+              </svg>
+            }            
           </button>
+
           <button
             onClick={() => deleteHandeler(id, apiNewId)}
           >
