@@ -40,8 +40,8 @@ export const Footer = () => {
   return (
     <FooterWrapper>
       <p>Created by: Simon & Sofia</p>
-      <a href="https://github.com/solen80a/js-project-happy-thoughts">
-        <img src="./assets/Btn - github.svg" alt="Github icon to access the code" target="_blank" />
+      <a href="https://github.com/solen80a/js-project-happy-thoughts" target="_blank">
+        <img src="./assets/Btn - github.svg" alt="Github icon to access the code"/>
       </a>
     </FooterWrapper>
   )

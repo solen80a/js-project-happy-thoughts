@@ -31,5 +31,19 @@ textarea {
   padding-bottom: 35px;
 }
 
+button {
+    background-color: #eeeeee;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: ease .3s;
+
+    &:hover {
+      background-color: #f0aeae;
+      transform: scale(1.03);
+    }
+  }
 
 `

@@ -59,10 +59,12 @@ justify-content: space-between;
 
 export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) => {
 
+  const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
+  //const apiUrl = "http://localhost:8080/thoughts"
 
   const handleSubmit = (event) => {
 //https://happy-thoughts-api-4ful.onrender.com/thoughts
-    fetch("http://localhost:8080/thoughts", {
+    fetch(`${apiUrl}`, {
       method: "POST",
       body: JSON.stringify({
         message: userInput,

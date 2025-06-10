@@ -15,7 +15,8 @@ export const Cards = () => {
   const [apiNewId, setApiNewId] = useState()
 
   //https://happy-thoughts-api-4ful.onrender.com/thoughts
-  const apiUrl = "http://localhost:8080/thoughts"
+  //const apiUrl = "http://localhost:8080/thoughts"
+  const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
   
 
   useEffect(() => {
