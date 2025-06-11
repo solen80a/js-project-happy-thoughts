@@ -4,7 +4,7 @@ import { EditIcon } from "../components/icons/EditIcon"
 import { SaveIcon } from "../components/icons/SaveIcon"
 
 const UserSigninWrapper = styled.section`
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   justify-content: left;
   border: 1px solid #000;
@@ -12,16 +12,16 @@ const UserSigninWrapper = styled.section`
   width: 280px;
   margin: 28px auto;
   padding: 12px 18px;
-  gap: 12px;
+  gap: 12px; */
 
   @media (min-width: 640px) {
     width: 620px;    
   }
 
-  input{
+  /* input{
     height: 80px;
     width: 100%;    
-  }
+  } */
 
   div{
     /* display: flex;
@@ -31,11 +31,58 @@ const UserSigninWrapper = styled.section`
     width: 100%; */
   }
 
+  form {
+  background: #f1f1f1;
+  padding: 2rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  box-shadow: 8px 8px 0 #000;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  }
+
+  fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  button{
+    padding: 0.6rem;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #444;
+  }
+
+
 `
 
 export const UserSignin = () => {
   return(
-    <section>
+    <UserSigninWrapper>
       <form>
         <fieldset>          
           <div>
@@ -49,7 +96,7 @@ export const UserSignin = () => {
           <div>
             <label for="password"></label>
             <input 
-              type="text" 
+              type="password" 
               name="password" 
               id="password" 
               placeholder="something secret"/>
@@ -61,6 +108,6 @@ export const UserSignin = () => {
         </fieldset>
         
       </form>
-    </section>
+    </UserSigninWrapper>
   )  
 }
