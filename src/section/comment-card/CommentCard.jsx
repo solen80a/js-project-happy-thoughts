@@ -1,6 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+import { DeleteIcon } from "../../components/icons/DeleteIcon";
+import { EditIcon } from "../../components/icons/EditIcon";
+import { SaveIcon } from "../../components/icons/SaveIcon";
+
 //#region ---- STYLING ----
 
 const CommentCardWrapper = styled.div`
@@ -274,22 +278,16 @@ export const CommentCard = ({ text,
             onClick={isEditing ? handleSave : handleEdit}
           > 
             {isEditing ? 
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm0 2v2H7V5h10zM5 19V5h2v4h10V5l2 2v12H5z"/>
-              </svg> 
+              <EditIcon/> 
               : 
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M4 21h4l11.293-11.293a1 1 0 0 0 0-1.414l-2.586-2.586a1 1 0 0 0-1.414 0L4 17v4zm14.707-13.707-2.586-2.586L17 3.414l2.586 2.586-0.879 0.879z"/>
-              </svg>
+              <SaveIcon/>
             }            
           </button>
 
           <button
             onClick={() => deleteHandeler(id, apiNewId)}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M9 3V4H4V6H5V19C5 20.105 5.895 21 7 21H17C18.105 21 19 20.105 19 19V6H20V4H15V3H9zM7 6H17V19H7V6z"/>
-            </svg>
+            <DeleteIcon/>
           </button>          
         </div>       
       </CommentCardHeader> 
