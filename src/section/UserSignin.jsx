@@ -1,6 +1,7 @@
 import styled from "styled-components"
-import { SaveIcon } from "../components/icons/SaveIcon"
+
 import { EditIcon } from "../components/icons/EditIcon"
+import { SaveIcon } from "../components/icons/SaveIcon"
 
 const UserSigninWrapper = styled.section`
   display: flex;
@@ -36,15 +37,7 @@ export const UserSignin = () => {
   return(
     <section>
       <form>
-        <fieldset>
-          <div>
-            <label for="username"></label>
-            <input 
-              type="text" 
-              name="username" 
-              id="username" 
-              placeholder="e.g., myusername"/>
-          </div>
+        <fieldset>          
           <div>
             <label for="email"></label>
             <input 
@@ -69,9 +62,5 @@ export const UserSignin = () => {
         
       </form>
     </section>
-  )
-   
-    
-    
-  
+  )  
 }
