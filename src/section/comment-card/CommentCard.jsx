@@ -214,28 +214,32 @@ export const CommentCard = ({ text,
   const [userEditInput, setUserEditInput] = useState("")
   const [isEditing, setIsEditing] = useState(false);
 
+  const handleEdit = () => {
+    setUserEditInput(text)
+    setIsEditing(true);
+  };
+
   const handleSave = () => {
     setIsEditing(false);
 
     if (setMessages) {
       setMessages((prevMessages) => 
-      prevMessages.map((message) => message.id === id ? 
-      { ...message, message: userEditInput } : message
+      prevMessages.map(
+        (message) => message.id === id ? 
+      { ...message, text: userEditInput } : message
       ))
     }
 
     if (setRecentComments) {
       setRecentComments((prevMessages) => 
       prevMessages.map((message) => message.id === id ? 
-      { ...message, message: userEditInput } : message
+      { ...message, text: userEditInput } : message
       ))
     }
 
-    console.log("Saving:", userEditInput);
-
     fetch(`${apiUrl}/${id}`, {
       method: "PATCH",
-      body: JSON.stringify({ message: userEditInput, }),
+      body: JSON.stringify({ newThoughtMessage: userEditInput }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -244,11 +248,6 @@ export const CommentCard = ({ text,
     .then((data) => console.log("API response:", data))
     .catch((err) => console.error("API error:", err));   
 
-  };
-
-  const handleEdit = () => {
-    setUserEditInput(text)
-    setIsEditing(true);
   };
 
   
