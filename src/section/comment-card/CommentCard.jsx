@@ -252,9 +252,7 @@ export const CommentCard = ({ text,
     .then((data) => console.log("API response:", data))
     .catch((err) => console.error("API error:", err));   
 
-  };
-
-  
+  };  
   //#endregion ---- editHandeler ----
 
   //#endregion
@@ -283,7 +281,6 @@ export const CommentCard = ({ text,
               <SaveIcon/>
             }            
           </button>
-
           <button
             onClick={() => deleteHandeler(id, apiNewId)}
           >

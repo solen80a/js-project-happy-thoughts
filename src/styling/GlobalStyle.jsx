@@ -7,6 +7,21 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;     */
   }
 
+header{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
 fieldset{
   display: flex;
   flex-direction: column;
