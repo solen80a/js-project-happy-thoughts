@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import { ErrorHandeler } from "../../components/ErrorHandeler";
+import { UserSignin } from "../UserSignin";
 
 //#region ---- STYLING ----
 
@@ -90,30 +91,34 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit}>
-        <MessageCardWrapper>
-          <p>What´s making you happy right now?</p>
-          <label>
-            <textarea
-              maxLength={140}
-              value={userInput}
-              onChange={(event) => setUserInput(event.target.value)}
-              placeholder="Write something happy!"
-              onKeyDown={EnterPress}
-            ></textarea>
-          </label>
-          <ExtraWrapper>
-            <button
-              type="submit"
-              disabled={userInput.trim().length <= 5 || userInput.trim().length >= 141}
-            >
-              ❤️ Send Happy Thoughts ❤️</button>
-            <ErrorHandeler userInput={userInput} setUserInput={setUserInput} />
-          </ExtraWrapper>
-        </MessageCardWrapper>
+      <UserSignin/>
+      <section>
+        <form
+          onSubmit={handleSubmit}>
+          <MessageCardWrapper>
+            <p>What´s making you happy right now?</p>
+            <label>
+              <textarea
+                maxLength={140}
+                value={userInput}
+                onChange={(event) => setUserInput(event.target.value)}
+                placeholder="Write something happy!"
+                onKeyDown={EnterPress}
+              ></textarea>
+            </label>
+            <ExtraWrapper>
+              <button
+                type="submit"
+                disabled={userInput.trim().length <= 5 || userInput.trim().length >= 141}
+              >
+                ❤️ Send Happy Thoughts ❤️</button>
+              <ErrorHandeler userInput={userInput} setUserInput={setUserInput} />
+            </ExtraWrapper>
+          </MessageCardWrapper>
 
-      </form >
+        </form >
+      </section>
+      
 
 
 

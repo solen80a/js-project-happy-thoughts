@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 import { HappyFaceIcon } from "../components/icons/HappyFaceIcon"
 import { Title } from "../styling/Typography"
+import { UserSignin } from "./UserSignin"
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ export const Header = () => {
       <button onClick={handleSignin}>      
         <HappyFaceIcon />
       </button>
-    </ButtonWrapper>
+    </ButtonWrapper>   
    
     </header>
     

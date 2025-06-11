@@ -35,6 +35,10 @@ fieldset{
   gap: 12px;
   box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
 
+  @media (min-width: 640px) {
+    width: 620px;
+  }
+
 }  
 
 textarea {

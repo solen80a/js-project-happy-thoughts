@@ -276,9 +276,9 @@ export const CommentCard = ({ text,
             onClick={isEditing ? handleSave : handleEdit}
           > 
             {isEditing ? 
-              <EditIcon/> 
+              <SaveIcon/>              
               : 
-              <SaveIcon/>
+              <EditIcon/> 
             }            
           </button>
           <button

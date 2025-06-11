@@ -16,13 +16,15 @@ const SvgWrapper = styled.div`
   }
 `;
 
+
 export const SaveIcon = () => (
   <SvgWrapper>
     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M4 21h4l11.293-11.293a1 1 0 0 0 0-1.414l-2.586-2.586a1 1 0 0 0-1.414 0L4 17v4zm14.707-13.707-2.586-2.586L17 3.414l2.586 2.586-0.879 0.879z"/>
+      <path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4zm0 2v2H7V5h10zM5 19V5h2v4h10V5l2 2v12H5z"/>
     </svg>
   </SvgWrapper>
 );
+
 
 
  
