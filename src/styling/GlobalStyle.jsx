@@ -7,6 +7,10 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;     */
   }
 
+h1{
+  text-align: center;
+}
+
 header{
   display: flex;
   flex-direction: row;
@@ -22,7 +26,7 @@ header{
   align-items: center;
 } */
 
-fieldset{
+/* fieldset{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,7 +43,7 @@ fieldset{
     width: 620px;
   }
 
-}  
+}   */
 
 textarea {
   height: 80px;

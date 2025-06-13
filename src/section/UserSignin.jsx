@@ -1,44 +1,50 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
-import { EditIcon } from "../components/icons/EditIcon"
+import { HappyFaceIconPlus } from "../components/icons/HappyFaceIconPlus"
 import { SaveIcon } from "../components/icons/SaveIcon"
 
-const UserSigninWrapper = styled.section`
-  /* display: flex;
-  flex-direction: row;
+//#region ---- STYLING ----
+const UserSigninWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   justify-content: left;
   border: 1px solid #000;
   box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
   width: 280px;
   margin: 28px auto;
   padding: 12px 18px;
-  gap: 12px; */
+  gap: 12px;
+  animation: ${({ isNewComment }) => (isNewComment ? 'popComment 0.6s ease-out forwards' : 'none')};
+
+  @keyframes popComment {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(10px) scale(1.02);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
 
   @media (min-width: 640px) {
     width: 620px;    
   }
 
-  /* input{
-    height: 80px;
-    width: 100%;    
-  } */
-
-  div{
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%; */
-  }
+ 
 
   form {
-  background: #f1f1f1;
+ 
   padding: 2rem;
   max-width: 400px;
   margin: 2rem auto;
-  box-shadow: 8px 8px 0 #000;
-  border-radius: 8px;
-  font-family: 'Segoe UI', sans-serif;
+  
   }
 
   fieldset {
@@ -56,58 +62,84 @@ const UserSigninWrapper = styled.section`
   input {
     padding: 0.5rem;
     font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    
     width: 100%;
     box-sizing: border-box;
   }
-
-  button{
-    padding: 0.6rem;
-    background-color: #000;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  button:hover {
-    background-color: #444;
-  }
-
-
 `
+//#endregion
 
 export const UserSignin = () => {
+  const navigate = useNavigate()
+ 
+
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  })
+
+  const [error, setError] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    
+
+    if(!formData.username || !formData.password){
+      setError("Please fill in both username and password");
+      return;
+    }
+
+    setError("");
+    navigate("/");
+
+    console.log(formData);
+  }
+
   return(
-    <UserSigninWrapper>
-      <form>
-        <fieldset>          
-          <div>
-            <label for="email"></label>
-            <input 
-              type="email" 
-              name="email" 
-              id="email" 
-              placeholder="e.g., myusername@mail.com"/>
-          </div>
-          <div>
-            <label for="password"></label>
-            <input 
-              type="password" 
-              name="password" 
-              id="password" 
-              placeholder="something secret"/>
-          </div>
-          <div>
-            <button type="submit"><SaveIcon/></button>
-            
-          </div>      
-        </fieldset>
-        
-      </form>
-    </UserSigninWrapper>
+    <section>
+      <h1>Signin</h1>
+      <UserSigninWrapper> 
+        <form onSubmit={handleSubmit}>
+          {error && <div style={{color: "red"}}>{error}</div>}
+          <fieldset>          
+            <div>
+              <label for="email">Username</label>
+              <input 
+                onChange={(event) => setFormData({ 
+                  ...formData, username: event.target.value})}
+                type="email" 
+                name="email" 
+                id="email"
+                value={formData.username} 
+                placeholder="e.g., myusername@mail.com"/>
+            </div>
+            <div>
+              <label for="password">Enter a password</label>
+              <input
+                onChange={(event => setFormData({ 
+                  ...formData, password: event.target.value}))} 
+                type="password" 
+                name="password" 
+                id="password" 
+                value={formData.password}
+                placeholder="password"
+                />
+            </div>
+            <div>
+              <button type="submit"><SaveIcon/></button>              
+            </div>      
+          </fieldset>          
+        </form> 
+        <div>
+           <p>Don't have an account?</p>
+           <button 
+            onClick={() => navigate('/usersignup')}
+            >
+              <HappyFaceIconPlus/>
+           </button>
+        </div>       
+      </UserSigninWrapper>     
+    </section>  
+    
   )  
 }

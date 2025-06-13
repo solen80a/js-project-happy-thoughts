@@ -1,6 +1,8 @@
+import { toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
 
 import { ErrorHandeler } from "../../components/ErrorHandeler";
+import { HappyFaceIcon } from "../../components/icons/HappyFaceIcon";
 import { UserSignin } from "../UserSignin";
 
 //#region ---- STYLING ----
@@ -60,11 +62,12 @@ justify-content: space-between;
 
 export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) => {
 
-  const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
-  //const apiUrl = "http://localhost:8080/thoughts"
+  //const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
+  const apiUrl = "http://localhost:8080/thoughts"
 
   const handleSubmit = (event) => {
-//https://happy-thoughts-api-4ful.onrender.com/thoughts
+    event.preventDefault();
+
     fetch(`${apiUrl}`, {
       method: "POST",
       body: JSON.stringify({
@@ -72,12 +75,23 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
       }),
       headers: { "Content-Type": "application/json" },
     })
-      .then((res) => res.json())
+    .then((res) => {
+      if(!res.ok){
+      if(res.status === 401){
+        toast.error(<p>Please login, you must be logged in to post a comment. <HappyFaceIcon /></p>);
+      } else {
+        toast.error(`Error: ${res.statusText}`)
+      }
+      throw new Error("Unauthorized or error response")
+    }
+      return res.json();
+    })    
+  
       .then((newThought) => {
         setApiNewId(newThought._id)
-        // setMessages((previousThoughts) => [newThought, ...previousThoughts])
-      })
-    comment(event, userInput);
+        comment(event, userInput);
+      }) 
+      .catch((error) => console.error("API error:", error));
   };
 
   const EnterPress = (e) => {
@@ -91,7 +105,7 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
 
   return (
     <>
-      
+      <ToastContainer/>
       <section>
         <form
           onSubmit={handleSubmit}>

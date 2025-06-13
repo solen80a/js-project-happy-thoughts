@@ -133,8 +133,8 @@ export const CommentCard = ({ text,
   setRecentComments
 }) => {
 
-  const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
-  //const apiUrl = "http://localhost:8080/thoughts"
+  //const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
+  const apiUrl = "http://localhost:8080/thoughts"
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false)
 
@@ -249,7 +249,7 @@ export const CommentCard = ({ text,
       },
     })
     .then((res) => res.json())
-    .then((data) => console.log("API response:", data))
+    .then((data) => console.log("API response:", data.message))
     .catch((err) => console.error("API error:", err));   
 
   };  

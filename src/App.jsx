@@ -4,8 +4,8 @@ import { Cards } from "./section/cards/Cards";
 import { Footer } from "./section/Footer";
 import { Header } from "./section/Header";
 import { UserSignin } from "./section/UserSignin";
+import { UserSignup } from "./section/UserSignup";
 import { GlobalStyle } from "./styling/GlobalStyle"
-import { Title } from "./styling/Typography"
 
 export const App = () => {
 
@@ -16,8 +16,8 @@ export const App = () => {
       <Header/>
       <Routes>
         <Route path="/" element={<Cards />}></Route>
-        <Route path="/users" element={<UserSignin/>}></Route>
-        
+        <Route path="/usersignin" element={<UserSignin/>}></Route>
+        <Route path="/usersignup" element={<UserSignup/>}></Route>
       </Routes>
       {/* <Title>Happy Thoughts</Title> */}      
       {/* <Footer /> */}

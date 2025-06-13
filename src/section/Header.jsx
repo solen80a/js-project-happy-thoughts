@@ -1,7 +1,7 @@
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 import { HappyFaceIcon } from "../components/icons/HappyFaceIcon"
-import { Title } from "../styling/Typography"
 import { UserSignin } from "./UserSignin"
 
 const ButtonWrapper = styled.div`
@@ -13,21 +13,23 @@ const ButtonWrapper = styled.div`
   width: 50%;
 `
 
-const handleSignin = () => {
-  console.log("You clicked signin")
-}
-
-
 export const Header = () => {
-  return(
+  const navigate = useNavigate()
+
+  const handleSignin = () => {
+  console.log("You clicked signin")
+  navigate("/usersignin"); // ← navigate to the route
+  }
+
+  return(    
     <header>
-    <Title>Happy Thoughts</Title>
+    <h1>Happy Thoughts</h1>
+    
     <ButtonWrapper>
       <button onClick={handleSignin}>      
         <HappyFaceIcon />
       </button>
-    </ButtonWrapper>   
-   
+    </ButtonWrapper>      
     </header>
     
 
