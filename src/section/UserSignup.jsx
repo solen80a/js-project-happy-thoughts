@@ -69,6 +69,9 @@ const UserSignupWrapper = styled.div`
 export const UserSignup = () => {
   const navigate = useNavigate()
 
+  //const apiUrl = "https://js-project-api-afon.onrender.com/users"
+  const apiUrl = "http://localhost:8080/users"
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -83,7 +86,7 @@ export const UserSignup = () => {
     const fail = () => toast.error("Something went wrong, please try again"); 
 
   try {
-    const response = await fetch("http://localhost:8080/users", {
+    const response = await fetch(`${apiUrl}`, {
       method: "POST",
       body: JSON.stringify({ email, password }),
       headers: {

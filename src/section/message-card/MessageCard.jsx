@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import { ErrorHandeler } from "../../components/ErrorHandeler";
 import { HappyFaceIcon } from "../../components/icons/HappyFaceIcon";
-import { UserSignin } from "../UserSignin";
 
 //#region ---- STYLING ----
 
@@ -62,6 +61,8 @@ justify-content: space-between;
 
 export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) => {
 
+  const accessToken = localStorage.getItem("accessToken");
+
   //const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
   const apiUrl = "http://localhost:8080/thoughts"
 
@@ -73,7 +74,10 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
       body: JSON.stringify({
         message: userInput,
       }),
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json", 
+        "Authorization": accessToken, 
+      },      
     })
     .then((res) => {
       if(!res.ok){

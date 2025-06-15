@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast, ToastContainer } from "react-toastify"
 import styled from "styled-components"
 
 import { HappyFaceIconPlus } from "../components/icons/HappyFaceIconPlus"
@@ -71,50 +72,85 @@ const UserSigninWrapper = styled.div`
 
 export const UserSignin = () => {
   const navigate = useNavigate()
- 
+
+  //const apiUrl = "https://js-project-api-afon.onrender.com/sessions"
+  const apiUrl = "http://localhost:8080/sessions"
+  //ADD fetch, next upp!
 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    accessToken: "",
   })
 
   const [error, setError] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
+    // const email = event.target.username.value
+    // const password = event.target.password.value 
     
+    const fail = () => toast.error("Username and/or password is incorrect, please try again.");     
 
-    if(!formData.username || !formData.password){
+    if(!formData.username.trim() || !formData.password.trim()){
       setError("Please fill in both username and password");
-      return;
-    }
+      return;    
+    }   
+   
 
-    setError("");
-    navigate("/");
+    try {
+    const response = await fetch(`${apiUrl}`, {
+      method: "POST",
+      body: JSON.stringify({ username: formData.username, password: formData.password }),
+      headers: {
+        "Content-Type": "application/json"        
+      },
+      
+    });
+        
+      if(!response.ok){
+          throw new Error("API error");
+        }
 
-    console.log(formData);
+        const data = await response.json()
+        localStorage.setItem("accessToken", data.accessToken)
+        localStorage.setItem("userId", data.userId);
+        localStorage.setItem("username", data.username);
+
+        
+        event.target.reset();
+
+        console.log("API response:", await response.json());
+        
+        navigate("/");
+
+  }catch(error){
+    console.error("Signin error:", error);    
+    fail();
+  }
+   
   }
 
   return(
     <section>
       <h1>Signin</h1>
       <UserSigninWrapper> 
-        <form onSubmit={handleSubmit}>
-          {error && <div style={{color: "red"}}>{error}</div>}
+        <form onSubmit={handleLogin}>
+          {error && <div style={{color: "red"}}>{error}</div>}          
           <fieldset>          
             <div>
-              <label for="email">Username</label>
+              <label htmlFor="username">Username</label>
               <input 
                 onChange={(event) => setFormData({ 
                   ...formData, username: event.target.value})}
                 type="email" 
-                name="email" 
-                id="email"
+                name="username" 
+                id="username"
                 value={formData.username} 
                 placeholder="e.g., myusername@mail.com"/>
             </div>
             <div>
-              <label for="password">Enter a password</label>
+              <label htmlFor="password">Enter a password</label>
               <input
                 onChange={(event => setFormData({ 
                   ...formData, password: event.target.value}))} 
@@ -130,6 +166,7 @@ export const UserSignin = () => {
             </div>      
           </fieldset>          
         </form> 
+        <ToastContainer/>
         <div>
            <p>Don't have an account?</p>
            <button 

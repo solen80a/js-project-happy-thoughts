@@ -133,6 +133,8 @@ export const CommentCard = ({ text,
   setRecentComments
 }) => {
 
+  const accessToken = localStorage.getItem("accessToken");
+
   //const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
   const apiUrl = "http://localhost:8080/thoughts"
 
@@ -181,6 +183,7 @@ export const CommentCard = ({ text,
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": accessToken
         },
       });
     }
@@ -189,6 +192,7 @@ export const CommentCard = ({ text,
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": accessToken
       },
     });
   };
@@ -210,6 +214,7 @@ export const CommentCard = ({ text,
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": accessToken
       },
     });
   }
@@ -246,6 +251,7 @@ export const CommentCard = ({ text,
       body: JSON.stringify({ newThoughtMessage: userEditInput }),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": accessToken
       },
     })
     .then((res) => res.json())
