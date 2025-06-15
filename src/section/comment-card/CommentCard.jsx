@@ -135,8 +135,8 @@ export const CommentCard = ({ text,
 
   const accessToken = localStorage.getItem("accessToken");
 
-  //const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
-  const apiUrl = "http://localhost:8080/thoughts"
+  const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
+  //const apiUrl = "http://localhost:8080/thoughts"
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false)
 

@@ -69,8 +69,8 @@ const UserSignupWrapper = styled.div`
 export const UserSignup = () => {
   const navigate = useNavigate()
 
-  //const apiUrl = "https://js-project-api-afon.onrender.com/users"
-  const apiUrl = "http://localhost:8080/users"
+  const apiUrl = "https://js-project-api-afon.onrender.com/users"
+  //const apiUrl = "http://localhost:8080/users"
 
   const [formData, setFormData] = useState({
     username: "",

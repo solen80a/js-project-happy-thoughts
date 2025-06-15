@@ -63,8 +63,8 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
 
   const accessToken = localStorage.getItem("accessToken");
 
-  //const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
-  const apiUrl = "http://localhost:8080/thoughts"
+  const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
+  //const apiUrl = "http://localhost:8080/thoughts"
 
   const handleSubmit = (event) => {
     event.preventDefault();

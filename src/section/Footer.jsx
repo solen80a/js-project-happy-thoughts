@@ -39,7 +39,7 @@ const FooterWrapper = styled.footer`
 export const Footer = () => {
   return (
     <FooterWrapper>
-      <p>Created by: Simon & Sofia</p>
+      <p>Created by: Sofia</p>
       <a href="https://github.com/solen80a/js-project-happy-thoughts" target="_blank">
         <img src="./assets/Btn - github.svg" alt="Github icon to access the code"/>
       </a>
