@@ -91,7 +91,7 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
       }),
       headers: { 
         "Content-Type": "application/json", 
-        "Authorization": accessToken
+        "Authorization": localStorage.getItem("accessToken")
       },      
     })
     
@@ -146,16 +146,16 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
 
   //#endregion
 
-   if (!accessToken) {
-    return (
-      <>
-        <ToastContainer />
-        <p style={{ textAlign: "center", padding: "20px", fontStyle: "italic" }}>
-          You must log in to post a happy thought.
-        </p>
-      </>
-    );
-  }
+  //  if (!accessToken) {
+  //   return (
+  //     <>
+  //       <ToastContainer />
+  //       <p style={{ textAlign: "center", padding: "20px", fontStyle: "italic" }}>
+  //         You must log in to post a happy thought.
+  //       </p>
+  //     </>
+  //   );
+  // }
 
   return (
     <>

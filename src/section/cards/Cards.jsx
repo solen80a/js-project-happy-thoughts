@@ -80,8 +80,43 @@ export const Cards = () => {
   useEffect(() => {
   const token = localStorage.getItem("accessToken");
 
-  if (token) {
-    setLoading(true);
+  //if (token) {
+    // setLoading(true);
+
+    // fetch(apiUrl, {
+    //   headers: {
+    //     "Authorization": token,
+    //     "Content-Type": "application/json"
+    //   }
+    // })
+
+    
+    //   .then(res => {
+    //     if (!res.ok) {
+    //       throw new Error(`HTTP error! Status: ${res.status}`);
+    //     }
+    //     return res.json();
+    //   })
+    //   .then(json => {
+    //     const normalized = json.map((item) => ({
+    //       id: item._id,
+    //       text: item.message.trim(),
+    //       timestamp: moment(item.createdAt).fromNow(),
+    //       likes: item.hearts,
+    //       liked: false,
+    //       userId: item.userId
+    //     }));
+    //     setRecentComments(normalized);
+    //   })
+    //   .catch(error => {
+    //     console.error('Fetch error:', error.message);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
+ // }
+
+  setLoading(true);
 
     fetch(apiUrl, {
       headers: {
@@ -89,6 +124,8 @@ export const Cards = () => {
         "Content-Type": "application/json"
       }
     })
+
+    
       .then(res => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
@@ -102,7 +139,7 @@ export const Cards = () => {
           timestamp: moment(item.createdAt).fromNow(),
           likes: item.hearts,
           liked: false,
-          userId: item.userId
+          userId: item.user
         }));
         setRecentComments(normalized);
       })
@@ -112,7 +149,7 @@ export const Cards = () => {
       .finally(() => {
         setLoading(false);
       });
-  }
+
 }, []);
 
 

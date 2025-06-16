@@ -137,7 +137,8 @@ export const CommentCard = ({
 
   const accessToken = localStorage.getItem("accessToken");
   const currentUserId = localStorage.getItem("userId");
-  const isOwner = userId === currentUserId;
+  // const isOwner = userId?._id === currentUserId;
+  const isOwner = (userId === currentUserId) || (userId?._id === currentUserId);
 
   const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
   //const apiUrl = "http://localhost:8080/thoughts"
