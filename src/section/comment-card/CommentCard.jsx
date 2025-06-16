@@ -299,23 +299,7 @@ export const CommentCard = ({
             <DeleteIcon/>
           </button>          
         </div>
-        )}
-        {/* <div>        
-          <button
-            onClick={isEditing ? handleSave : handleEdit}
-          > 
-            {isEditing ? 
-              <SaveIcon/>              
-              : 
-              <EditIcon/> 
-            }            
-          </button>
-          <button
-            onClick={() => deleteHandeler(id, apiNewId)}
-          >
-            <DeleteIcon/>
-          </button>          
-        </div>        */}
+        )}        
       </CommentCardHeader> 
       <CommentCardFooter>
         <div>

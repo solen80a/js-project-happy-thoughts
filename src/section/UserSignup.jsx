@@ -82,7 +82,6 @@ export const UserSignup = () => {
     const email = event.target.username.value;
     const password = event.target.password.value;
 
-    //const success = () => toast.success("Signup successful");
     const fail = () => toast.error("Something went wrong, please try again"); 
 
   try {
@@ -101,7 +100,7 @@ export const UserSignup = () => {
         event.target.reset();
         // Notify parent component
         console.log("API response:", await response.json());
-        //success();
+        
         navigate("/");
 
   }catch(error){

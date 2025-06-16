@@ -3,7 +3,6 @@ import { toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
 
 import { ErrorHandeler } from "../../components/ErrorHandeler";
-import { HappyFaceIcon } from "../../components/icons/HappyFaceIcon";
 
 //#region ---- STYLING ----
 
@@ -21,7 +20,6 @@ gap: 12px;
 box-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
 
 textarea {
-/* border: solid 2px ${(props) => (props.maxCharacterIndicator ? "red" : "white")}; */
 height: 80px;
 width: 100%;
 padding: 10px 20px;
@@ -106,35 +104,7 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
     } catch (error) {
       toast.error("Network error — could not post thought.")
       console.error("API error:", error)
-    }
-
-    // fetch(`${apiUrl}`, {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     message: userInput,
-    //   }),
-    //   headers: { 
-    //     "Content-Type": "application/json", 
-    //     "Authorization": accessToken
-    //   },      
-    // })
-    // .then((res) => {
-    //   if(!res.ok){
-    //   if(res.status === 401){
-    //     toast.error(<p>Please login, you must be logged in to post a comment. <HappyFaceIcon /></p>);
-    //   } else {
-    //     toast.error(`Error: ${res.statusText}`)
-    //   }
-    //   throw new Error("Unauthorized or error response")
-    // }
-    //   return res.json();
-    // })    
-  
-    //   .then((newThought) => {
-    //     setApiNewId(newThought._id)
-    //     comment(event, userInput);
-    //   }) 
-    //   .catch((error) => console.error("API error:", error));
+    }   
   };
 
   const EnterPress = (e) => {
@@ -144,18 +114,7 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
     }
   }
 
-  //#endregion
-
-  //  if (!accessToken) {
-  //   return (
-  //     <>
-  //       <ToastContainer />
-  //       <p style={{ textAlign: "center", padding: "20px", fontStyle: "italic" }}>
-  //         You must log in to post a happy thought.
-  //       </p>
-  //     </>
-  //   );
-  // }
+  //#endregion  
 
   return (
     <>

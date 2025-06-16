@@ -74,8 +74,7 @@ export const UserSignin = () => {
   const navigate = useNavigate()
 
   const apiUrl = "https://js-project-api-afon.onrender.com/sessions"
-  //const apiUrl = "http://localhost:8080/sessions"
-  //ADD fetch, next upp!
+  //const apiUrl = "http://localhost:8080/sessions" 
 
   const [formData, setFormData] = useState({
     username: "",
@@ -86,8 +85,7 @@ export const UserSignin = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    // const email = event.target.username.value
-    // const password = event.target.password.value 
+  
     
     const fail = () => toast.error("Username and/or password is incorrect, please try again.");     
 
@@ -110,20 +108,17 @@ export const UserSignin = () => {
       
     });
         
-      // if(!response.ok){
-      //     throw new Error("API error");
-      //   }
-      const data = await response.json();
+     const data = await response.json();
 
       if (data.notFound) {
         fail(); // Show toast error
         return;
       }  
 
-        //const data = await response.json()
+        
         localStorage.setItem("accessToken", data.accessToken)
         localStorage.setItem("userId", data.userId);
-        //localStorage.setItem("username", data.username);
+        
 
         toast.success("Login successful!");
         

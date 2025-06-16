@@ -2,7 +2,18 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 import { HappyFaceIcon } from "../components/icons/HappyFaceIcon"
-import { UserSignin } from "./UserSignin"
+
+const HeaderWrapper = styled.div`
+  width: 280px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+   @media (min-width: 640px) {   
+    width: 620px;
+  }
+`
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -23,13 +34,15 @@ export const Header = () => {
 
   return(    
     <header>
-    <h1>Happy Thoughts</h1>
+      <HeaderWrapper>
+        <h1>Happy Thoughts</h1>
     
-    <ButtonWrapper>
-      <button onClick={handleSignin}>      
-        <HappyFaceIcon />
-      </button>
-    </ButtonWrapper>      
+        <ButtonWrapper>
+          <button onClick={handleSignin}>      
+            <HappyFaceIcon />
+          </button>
+        </ButtonWrapper>
+      </HeaderWrapper>          
     </header>
     
 
