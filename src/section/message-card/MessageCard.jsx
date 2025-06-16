@@ -75,7 +75,7 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
 
   }, [accessToken])
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if(!accessToken) {
@@ -83,7 +83,8 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
       return
     }
 
-    fetch(`${apiUrl}`, {
+    try {
+      const response = await fetch(`${apiUrl}`, {
       method: "POST",
       body: JSON.stringify({
         message: userInput,
@@ -93,23 +94,47 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
         "Authorization": accessToken
       },      
     })
-    .then((res) => {
-      if(!res.ok){
-      if(res.status === 401){
-        toast.error(<p>Please login, you must be logged in to post a comment. <HappyFaceIcon /></p>);
-      } else {
-        toast.error(`Error: ${res.statusText}`)
-      }
-      throw new Error("Unauthorized or error response")
+    
+    const data = await response.json()
+
+    if (!response.ok){
+      toast.error(data.error || "Something went wrong. Please try again.")
+      return
     }
-      return res.json();
-    })    
+      setApiNewId(data._id)
+      comment(event, userInput)
+    } catch (error) {
+      toast.error("Network error — could not post thought.")
+      console.error("API error:", error)
+    }
+
+    // fetch(`${apiUrl}`, {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     message: userInput,
+    //   }),
+    //   headers: { 
+    //     "Content-Type": "application/json", 
+    //     "Authorization": accessToken
+    //   },      
+    // })
+    // .then((res) => {
+    //   if(!res.ok){
+    //   if(res.status === 401){
+    //     toast.error(<p>Please login, you must be logged in to post a comment. <HappyFaceIcon /></p>);
+    //   } else {
+    //     toast.error(`Error: ${res.statusText}`)
+    //   }
+    //   throw new Error("Unauthorized or error response")
+    // }
+    //   return res.json();
+    // })    
   
-      .then((newThought) => {
-        setApiNewId(newThought._id)
-        comment(event, userInput);
-      }) 
-      .catch((error) => console.error("API error:", error));
+    //   .then((newThought) => {
+    //     setApiNewId(newThought._id)
+    //     comment(event, userInput);
+    //   }) 
+    //   .catch((error) => console.error("API error:", error));
   };
 
   const EnterPress = (e) => {
