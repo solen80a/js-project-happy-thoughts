@@ -61,7 +61,7 @@ justify-content: space-between;
 
 export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) => {
 
-  const accessToken = localStorage.getItem("accessToken");
+  //const accessToken = localStorage.getItem("accessToken");
 
   const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
   //const apiUrl = "http://localhost:8080/thoughts"
@@ -76,7 +76,7 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
       }),
       headers: { 
         "Content-Type": "application/json", 
-        "Authorization": accessToken, 
+        "Authorization": localStorage.getItem("accessToken") 
       },      
     })
     .then((res) => {
