@@ -79,8 +79,7 @@ export const UserSignin = () => {
 
   const [formData, setFormData] = useState({
     username: "",
-    password: "",
-    accessToken: "",
+    password: "",    
   })
 
   const [error, setError] = useState("");
@@ -101,18 +100,27 @@ export const UserSignin = () => {
     try {
     const response = await fetch(`${apiUrl}`, {
       method: "POST",
-      body: JSON.stringify({ username: formData.username, password: formData.password }),
+      body: JSON.stringify({ 
+        email: formData.username, 
+        password: formData.password 
+      }),
       headers: {
         "Content-Type": "application/json"        
       },
       
     });
         
-      if(!response.ok){
-          throw new Error("API error");
-        }
+      // if(!response.ok){
+      //     throw new Error("API error");
+      //   }
+      const data = await response.json();
 
-        const data = await response.json()
+      if (data.notFound) {
+        fail(); // Show toast error
+        return;
+      }  
+
+        //const data = await response.json()
         localStorage.setItem("accessToken", data.accessToken)
         localStorage.setItem("userId", data.userId);
         localStorage.setItem("username", data.username);
@@ -120,7 +128,7 @@ export const UserSignin = () => {
         
         event.target.reset();
 
-        console.log("API response:", await response.json());
+        console.log("API response:", data);
         
         navigate("/");
 

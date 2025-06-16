@@ -122,18 +122,22 @@ const CommentCardFooter = styled.footer`
 
 //#region ---- FUNCTIONS ----
 
-export const CommentCard = ({ text,
+export const CommentCard = ({ 
+  text,
   timestamp,
   likes,
   liked,
   isNewComment,
   id,
   apiNewId,
+  userId,
   setMessages,
   setRecentComments
 }) => {
 
   const accessToken = localStorage.getItem("accessToken");
+  const currentUserId = localStorage.getItem("userId");
+  const isOwner = userId === currentUserId;
 
   const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
   //const apiUrl = "http://localhost:8080/thoughts"
@@ -277,7 +281,8 @@ export const CommentCard = ({ text,
             :  <p>{text}</p>
           }
         </label>
-        <div>
+        {isOwner && (
+             <div>        
           <button
             onClick={isEditing ? handleSave : handleEdit}
           > 
@@ -292,7 +297,24 @@ export const CommentCard = ({ text,
           >
             <DeleteIcon/>
           </button>          
-        </div>       
+        </div>
+        )}
+        {/* <div>        
+          <button
+            onClick={isEditing ? handleSave : handleEdit}
+          > 
+            {isEditing ? 
+              <SaveIcon/>              
+              : 
+              <EditIcon/> 
+            }            
+          </button>
+          <button
+            onClick={() => deleteHandeler(id, apiNewId)}
+          >
+            <DeleteIcon/>
+          </button>          
+        </div>        */}
       </CommentCardHeader> 
       <CommentCardFooter>
         <div>

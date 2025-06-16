@@ -19,15 +19,81 @@ export const Cards = () => {
   const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
   
 
+  // useEffect(() => {
+  //   const token = localStorage.getItem("accessToken");
+  //   if (token){
+  //      setLoading(true);
+
+  //   fetch(apiUrl)
+  //     .then(res => {
+  //       if (!res.ok) {
+  //         throw new Error(`HTTP error! Status: ${res.status}`);
+  //       }
+  //       return res.json()
+  //     })
+  //     .then(json => {
+  //       const normalized = json.map((item) => ({
+  //         id: item._id,
+  //         text: item.message.trim(),
+  //         timestamp: moment(item.createdAt).fromNow(),
+  //         likes: item.hearts,
+  //         liked: false
+  //       }))
+  //       setRecentComments(normalized)
+  //     })
+  //     .catch(error => {
+  //       console.error('Fetch error:', error.message);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+
+  //     });
+  //   }      
+    
+    // setLoading(true);
+
+    // fetch(apiUrl)
+    //   .then(res => {
+    //     if (!res.ok) {
+    //       throw new Error(`HTTP error! Status: ${res.status}`);
+    //     }
+    //     return res.json()
+    //   })
+    //   .then(json => {
+    //     const normalized = json.map((item) => ({
+    //       id: item._id,
+    //       text: item.message.trim(),
+    //       timestamp: moment(item.createdAt).fromNow(),
+    //       likes: item.hearts,
+    //       liked: false
+    //     }))
+    //     setRecentComments(normalized)
+    //   })
+    //   .catch(error => {
+    //     console.error('Fetch error:', error.message);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+
+    //   });
+  //}, []);
   useEffect(() => {
+  const token = localStorage.getItem("accessToken");
+
+  if (token) {
     setLoading(true);
 
-    fetch(apiUrl)
+    fetch(apiUrl, {
+      headers: {
+        "Authorization": token,
+        "Content-Type": "application/json"
+      }
+    })
       .then(res => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
-        return res.json()
+        return res.json();
       })
       .then(json => {
         const normalized = json.map((item) => ({
@@ -35,18 +101,20 @@ export const Cards = () => {
           text: item.message.trim(),
           timestamp: moment(item.createdAt).fromNow(),
           likes: item.hearts,
-          liked: false
-        }))
-        setRecentComments(normalized)
+          liked: false,
+          userId: item.userId
+        }));
+        setRecentComments(normalized);
       })
       .catch(error => {
         console.error('Fetch error:', error.message);
       })
       .finally(() => {
         setLoading(false);
-
       });
-  }, []);
+  }
+}, []);
+
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -94,6 +162,7 @@ export const Cards = () => {
             timestamp={item.timestamp}
             likes={item.likes}
             liked={item.liked}
+            userId={item.userId}
             setMessages={setMessages}
             setRecentComments={setRecentComments}
             isNewComment={index === 0} // Optional: Only mark the very first item as new
