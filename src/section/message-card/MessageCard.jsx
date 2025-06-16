@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
 
@@ -61,13 +62,26 @@ justify-content: space-between;
 
 export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) => {
 
-  //const accessToken = localStorage.getItem("accessToken");
-
+  const accessToken = localStorage.getItem("accessToken");
   const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
   //const apiUrl = "http://localhost:8080/thoughts"
 
+  useEffect(() => {
+    if(!accessToken) {
+      toast.info("Please log in to post a happy thought.", {
+        toastId: "not-logged-in",
+      })
+    }
+
+  }, [accessToken])
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if(!accessToken) {
+      toast.warning("You need to log in to post thoughts.")
+      return
+    }
 
     fetch(`${apiUrl}`, {
       method: "POST",
@@ -76,7 +90,7 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
       }),
       headers: { 
         "Content-Type": "application/json", 
-        "Authorization": localStorage.getItem("accessToken") 
+        "Authorization": accessToken
       },      
     })
     .then((res) => {
@@ -106,6 +120,17 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
   }
 
   //#endregion
+
+   if (!accessToken) {
+    return (
+      <>
+        <ToastContainer />
+        <p style={{ textAlign: "center", padding: "20px", fontStyle: "italic" }}>
+          You must log in to post a happy thought.
+        </p>
+      </>
+    );
+  }
 
   return (
     <>
