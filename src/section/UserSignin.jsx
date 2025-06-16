@@ -122,9 +122,10 @@ export const UserSignin = () => {
 
         //const data = await response.json()
         localStorage.setItem("accessToken", data.accessToken)
-        localStorage.setItem("userId", data.user._id);
-        localStorage.setItem("username", data.username);
+        localStorage.setItem("userId", data.userId);
+        //localStorage.setItem("username", data.username);
 
+        toast.success("Login successful!");
         
         event.target.reset();
 
