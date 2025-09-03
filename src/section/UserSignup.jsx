@@ -103,29 +103,36 @@ export const UserSignup = () => {
 
     const user = await response.json();
 
-    if (response.ok){
-    
+    if (response.ok){    
 
       // Auto-login after successful signup
       const loginRes = await fetch(`${apiUrl}/sessions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: formData.email,
+          email: formData.username,
           password: formData.password,
-        }),
+        }),        
       });
 
       const user = await loginRes.json();
-      localStorage.setItem("accessToken", user.accessToken)
-      localStorage.setItem("userId", user.userId);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      toast.success("Login successful!");
       
-      navigate("/", { state: { user } });
+      if (user.success && user.userId) {
+        localStorage.setItem("accessToken", user.accessToken)
+        localStorage.setItem("userId", user.userId);
+        localStorage.setItem("user", JSON.stringify(user));
 
-    }else{
+        toast.success("Login successful!");
+
+        console.log("API response:", user);
+      
+        navigate("/", { state: { user } });
+      } else {
+        setError("Signup succeeded, but login failed");
+        navigate("/usersignin", { state: { user } });
+      }
+
+    } else{
       //throw new Error("API error");
       fail(); // Show toast error
       setError(user.message || "Signup failed");
