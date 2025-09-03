@@ -73,8 +73,8 @@ const UserSigninWrapper = styled.div`
 export const UserSignin = () => {
   const navigate = useNavigate()
 
-  const apiUrl = "https://js-project-api-afon.onrender.com/sessions"
-  //const apiUrl = "http://localhost:8080/sessions" 
+  //const apiUrl = "https://js-project-api-afon.onrender.com/sessions"
+  const apiUrl = "http://localhost:8080/sessions" 
 
   const [formData, setFormData] = useState({
     username: "",
@@ -108,32 +108,33 @@ export const UserSignin = () => {
       
     });
         
-     const data = await response.json();
+    const user = await response.json();
+    console.log("API response:", user);
+    console.log("API raw response:", user)
+    console.log("Keys in response:", Object.keys(user))
 
-      if (data.notFound) {
+      if (user.success && user.userId){
+        localStorage.setItem("accessToken", user.accessToken)
+        localStorage.setItem("userId", user.userId);   
+        localStorage.setItem("user", JSON.stringify(user));     
+
+        toast.success("Login successful!"); 
+
+        console.log("API response:", user);
+        
+        navigate("/", { state: { user } });
+
+      } else {
         fail(); // Show toast error
-        return;
+        setError("Login failed. Please check your username and password.");
       }  
+      
+      event.target.reset();
 
-        
-        localStorage.setItem("accessToken", data.accessToken)
-        localStorage.setItem("userId", data.userId);
-        
-
-        toast.success("Login successful!");
-        
-        event.target.reset();
-
-        console.log("API response:", data);
-        
-        navigate("/");
-
-  }catch(error){
+  } catch(error){
     console.error("Signin error:", error);    
     fail();
-  }
-   
-  }
+  }}
 
   return(
     <section>

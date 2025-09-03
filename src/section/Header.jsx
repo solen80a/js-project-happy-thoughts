@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 import { HappyFaceIcon } from "../components/icons/HappyFaceIcon"
 
+//#region ---- STYLING ----
 const HeaderWrapper = styled.div`
   width: 280px;
   display: flex;
@@ -23,13 +24,22 @@ const ButtonWrapper = styled.div`
   position: relative;  
   width: 50%;
 `
+//#endregion
 
-export const Header = () => {
+export const Header = (user) => {
   const navigate = useNavigate()
+
+  console.log(user)
 
   const handleSignin = () => {
   console.log("You clicked signin")
   navigate("/usersignin"); // ← navigate to the route
+  }
+
+  const handleSignout = () => {
+     // ADD Clear user data 
+    localStorage.removeItem("user"); // Remove stored user object
+    navigate("/"); // Redirect to login page
   }
 
   return(    
@@ -38,9 +48,14 @@ export const Header = () => {
         <h1>Happy Thoughts</h1>
     
         <ButtonWrapper>
-          <button onClick={handleSignin}>      
-            <HappyFaceIcon />
-          </button>
+          {user ? 
+            <button onClick={handleSignin}>   
+              <HappyFaceIcon />
+            </button> 
+          :            
+            <button onClick={handleSignout}>      
+              Logout
+            </button>}
         </ButtonWrapper>
       </HeaderWrapper>          
     </header>

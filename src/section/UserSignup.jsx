@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { SaveIcon } from "../components/icons/SaveIcon";
 
+//#region ---- STYLING ----
 const UserSignupWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -65,43 +66,73 @@ const UserSignupWrapper = styled.div`
     box-sizing: border-box;
   }
 `
+//#endregion
 
 export const UserSignup = () => {
   const navigate = useNavigate()
 
-  const apiUrl = "https://js-project-api-afon.onrender.com/users"
-  //const apiUrl = "http://localhost:8080/users"
+  //const apiUrl = "https://js-project-api-afon.onrender.com"
+  const apiUrl = "http://localhost:8080"
 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
 
+  const [error, setError] = useState("");
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const email = event.target.username.value;
-    const password = event.target.password.value;
+    // const email = event.target.username.value;
+    // const password = event.target.password.value;   
 
     const fail = () => toast.error("Something went wrong, please try again"); 
 
   try {
-    const response = await fetch(`${apiUrl}`, {
+    const response = await fetch(`${apiUrl}/users`, {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      //body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ 
+        email: formData.username.trim(), 
+        password: formData.password.trim() 
+      }),  
       headers: {
         "Content-Type": "application/json"
       },
     });
+
+    const user = await response.json();
+
+    if (response.ok){
+    
+
+      // Auto-login after successful signup
+      const loginRes = await fetch(`${apiUrl}/sessions`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const user = await loginRes.json();
+      localStorage.setItem("accessToken", user.accessToken)
+      localStorage.setItem("userId", user.userId);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      toast.success("Login successful!");
+      
+      navigate("/", { state: { user } });
+
+    }else{
+      //throw new Error("API error");
+      fail(); // Show toast error
+      setError(user.message || "Signup failed");
+    }
+    // Reset form
+    event.target.reset();  
         
-      if(!response.ok){
-          throw new Error("API error");
-        }
-        // Reset form
-        event.target.reset();
-        // Notify parent component
-        console.log("API response:", await response.json());
-        
-        navigate("/");
 
   }catch(error){
     console.error("Signup error:", error);
@@ -113,7 +144,7 @@ export const UserSignup = () => {
       <h1>SIGN UP</h1>
       <UserSignupWrapper>
         <form onSubmit={handleSubmit}>
-          
+          {error && <div style={{color: "red"}}>{error}</div>}  
 
           <label htmlFor="username">Username</label>
           <input
