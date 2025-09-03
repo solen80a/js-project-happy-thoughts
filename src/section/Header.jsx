@@ -31,10 +31,8 @@ export const Header = () => {
   const storedUserId = localStorage.getItem("userId")
   const user = storedUserId ? { userId: storedUserId } : null
 
-  console.log(user)
-
   const handleSignin = () => {
-  console.log("You clicked signin")
+  
   navigate("/usersignin"); // ← navigate to the route
   }
 

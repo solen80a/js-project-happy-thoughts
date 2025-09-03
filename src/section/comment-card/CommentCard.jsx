@@ -154,7 +154,7 @@ export const CommentCard = ({
     setIsButtonDisabled(true)
 
     if (setMessages) {
-      console.log("setmessage")
+     
       setMessages((prevMessages) =>
         prevMessages.map((message) =>
           message.id === id
@@ -169,7 +169,7 @@ export const CommentCard = ({
       
     }
     if (setRecentComments) {
-      console.log("setRecentComments")
+    
       setRecentComments((prevMessages) =>
         prevMessages.map((message) =>
           message.id === id
@@ -260,7 +260,7 @@ export const CommentCard = ({
       },
     })
     .then((res) => res.json())
-    .then((data) => console.log("API response:", data.message))
+   
     .catch((err) => console.error("API error:", err));   
 
   };  

@@ -109,9 +109,7 @@ export const UserSignin = () => {
     });
         
     const user = await response.json();
-    console.log("API response:", user);
-    console.log("API raw response:", user)
-    console.log("Keys in response:", Object.keys(user))
+   
 
       if (user.success && user.userId){
         localStorage.setItem("accessToken", user.accessToken)
@@ -119,9 +117,7 @@ export const UserSignin = () => {
         localStorage.setItem("user", JSON.stringify(user));     
 
         toast.success("Login successful!"); 
-
-        console.log("API response:", user);
-        
+              
         navigate("/", { state: { user } });
 
       } else {

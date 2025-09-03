@@ -102,7 +102,7 @@ export const UserSignup = () => {
     });
 
     const user = await response.json();
-    console.log("Signup response:", response.status, user);
+   
 
     if (response.ok){    
 
@@ -123,9 +123,7 @@ export const UserSignup = () => {
         localStorage.setItem("userId", loginData.userId);
         localStorage.setItem("user", JSON.stringify(loginData));
 
-        toast.success("Login successful!");
-
-        console.log("API response:", loginData);
+        toast.success("Login successful!");       
       
         navigate("/", { state: { loginData } });
       } else {
