@@ -159,7 +159,7 @@ export const UserSignin = () => {
                 name="password" 
                 id="password" 
                 value={formData.password}
-                placeholder="password"
+                placeholder="password, min of 3 characters"
                 />
             </div>
             <div>
