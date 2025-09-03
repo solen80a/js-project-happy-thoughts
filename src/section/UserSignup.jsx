@@ -102,6 +102,7 @@ export const UserSignup = () => {
     });
 
     const user = await response.json();
+    console.log("Signup response:", response.status, user);
 
     if (response.ok){    
 
@@ -115,18 +116,18 @@ export const UserSignup = () => {
         }),        
       });
 
-      const user = await loginRes.json();
+      const loginData = await loginRes.json();
       
-      if (user.success && user.userId) {
-        localStorage.setItem("accessToken", user.accessToken)
-        localStorage.setItem("userId", user.userId);
-        localStorage.setItem("user", JSON.stringify(user));
+      if (loginData.success && loginData.userId) {
+        localStorage.setItem("accessToken", loginData.accessToken)
+        localStorage.setItem("userId", loginData.userId);
+        localStorage.setItem("user", JSON.stringify(loginData));
 
         toast.success("Login successful!");
 
-        console.log("API response:", user);
+        console.log("API response:", loginData);
       
-        navigate("/", { state: { user } });
+        navigate("/", { state: { loginData } });
       } else {
         setError("Signup succeeded, but login failed");
         navigate("/usersignin");
