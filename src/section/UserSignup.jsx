@@ -79,71 +79,75 @@ export const UserSignup = () => {
     password: "",
   });
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState(""); 
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    // const email = event.target.username.value;
-    // const password = event.target.password.value;   
+    event.preventDefault();  
+    
+    //Check if password is more then 3 characters
+    if (formData.password.length < 3){
+      toast.error("Password must be at least 3 characters long, please try again");
+      setError("Password must be at least 3 characters long, please try again");
 
-    const fail = () => toast.error("This user already exit, please try again"); 
+    } else {
+      const failUserExist = () => toast.error("This user already exit, please try again"); 
 
-  try {
-    const response = await fetch(`${apiUrl}/users`, {
-      method: "POST",
-      //body: JSON.stringify({ email, password }),
-      body: JSON.stringify({ 
-        email: formData.username.trim(), 
-        password: formData.password.trim() 
-      }),  
-      headers: {
-        "Content-Type": "application/json"
-      },
-    });
+      try {
+        const response = await fetch(`${apiUrl}/users`, {
+          method: "POST",
+          //body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ 
+            email: formData.username.trim(), 
+            password: formData.password.trim() 
+          }),  
+          headers: {
+            "Content-Type": "application/json"
+          },
+        });
 
-    const user = await response.json();
-   
-
-    if (response.ok){    
-
-      // Auto-login after successful signup
-      const loginRes = await fetch(`${apiUrl}/sessions`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: formData.username,
-          password: formData.password,
-        }),        
-      });
-
-      const loginData = await loginRes.json();
+        const user = await response.json();
       
-      if (loginData.success && loginData.userId) {
-        localStorage.setItem("accessToken", loginData.accessToken)
-        localStorage.setItem("userId", loginData.userId);
-        localStorage.setItem("user", JSON.stringify(loginData));
 
-        toast.success("Login successful!");       
-      
-        navigate("/", { state: { loginData } });
-      } else {
-        setError("Signup succeeded, but login failed");
-        navigate("/usersignin");
-      }
+        if (response.ok){    
 
-    } else{
-      //throw new Error("API error");
-      fail(); // Show toast error
-      setError(user.message || "Signup failed");
-    }
-    // Reset form
-    event.target.reset();  
-        
+          // Auto-login after successful signup
+          const loginRes = await fetch(`${apiUrl}/sessions`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: formData.username,
+              password: formData.password,
+            }),        
+          });
 
-  }catch(error){
-    console.error("Signup error:", error);
-    fail();
-  }
+          const loginData = await loginRes.json();
+          
+          if (loginData.success && loginData.userId) {
+            localStorage.setItem("accessToken", loginData.accessToken)
+            localStorage.setItem("userId", loginData.userId);
+            localStorage.setItem("user", JSON.stringify(loginData));
+
+            toast.success("Login successful!");       
+          
+            navigate("/", { state: { loginData } });
+          } else {
+            setError("Signup succeeded, but login failed");
+            navigate("/usersignin");
+          }
+
+        } else{
+          //throw new Error("API error");
+          failUserExist(); // Show toast error
+          setError(user.message || "Signup failed");
+        }
+        // Reset form
+        event.target.reset();  
+            
+
+      }catch(error){
+        console.error("Signup error:", error);
+        failUserExist();
+      }}
 };
   return (
     <section>

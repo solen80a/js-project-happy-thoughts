@@ -137,7 +137,7 @@ export const CommentCard = ({
 
   const accessToken = localStorage.getItem("accessToken");
   const currentUserId = localStorage.getItem("userId");
-  // const isOwner = userId?._id === currentUserId;
+  
   const isOwner = (userId === currentUserId) || (userId?._id === currentUserId);
 
   const apiUrl = "https://js-project-api-afon.onrender.com/thoughts"
@@ -183,7 +183,7 @@ export const CommentCard = ({
       );
     }
     if (apiNewId && apiNewId !== id) {
-      //https://happy-thoughts-api-4ful.onrender.com/thoughts/${apiNewId}/like
+      
       fetch(`${apiUrl}/${apiNewId}/like`, {
         method: "POST",
         headers: {
