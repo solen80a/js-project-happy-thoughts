@@ -86,7 +86,7 @@ export const UserSignup = () => {
     // const email = event.target.username.value;
     // const password = event.target.password.value;   
 
-    const fail = () => toast.error("Something went wrong, please try again"); 
+    const fail = () => toast.error("This user already exit, please try again"); 
 
   try {
     const response = await fetch(`${apiUrl}/users`, {
