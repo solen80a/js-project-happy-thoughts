@@ -166,7 +166,7 @@ export const UserSignup = () => {
             type="password"
             name="password"
             id="password"
-            placeholder="password"
+            placeholder="password, min of 3 characters"
           />
           <button type="submit">
             <SaveIcon/>
