@@ -26,8 +26,10 @@ const ButtonWrapper = styled.div`
 `
 //#endregion
 
-export const Header = (user) => {
+export const Header = () => {
   const navigate = useNavigate()
+  const storedUserId = localStorage.getItem("userId")
+  const user = storedUserId ? { userId: storedUserId } : null
 
   console.log(user)
 
@@ -37,8 +39,10 @@ export const Header = (user) => {
   }
 
   const handleSignout = () => {
-     // ADD Clear user data 
-    localStorage.removeItem("user"); // Remove stored user object
+    // Remove stored user, accessToken and userId
+    localStorage.removeItem("user"); 
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userId");
     navigate("/"); // Redirect to login page
   }
 
@@ -49,13 +53,20 @@ export const Header = (user) => {
     
         <ButtonWrapper>
           {user ? 
-            <button onClick={handleSignin}>   
+            <button onClick={handleSignout}
+              style={{
+              backgroundColor: user ? "#f0aeae" : "#eeeeee" ,
+              border: "none"
+            }}>      
+              Logout
+            </button>            
+          :  
+            <button onClick={handleSignin}
+              
+            >   
               <HappyFaceIcon />
             </button> 
-          :            
-            <button onClick={handleSignout}>      
-              Logout
-            </button>}
+          }
         </ButtonWrapper>
       </HeaderWrapper>          
     </header>

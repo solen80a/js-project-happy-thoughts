@@ -129,7 +129,7 @@ export const UserSignup = () => {
         navigate("/", { state: { user } });
       } else {
         setError("Signup succeeded, but login failed");
-        navigate("/usersignin", { state: { user } });
+        navigate("/usersignin");
       }
 
     } else{
