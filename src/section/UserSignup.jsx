@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
 
+import { HappyFaceIcon } from "../components/icons/HappyFaceIcon";
+import { HappyFaceWarnIcon } from "../components/icons/HappyFaceWarnIcon";
 import { SaveIcon } from "../components/icons/SaveIcon";
 
 //#region ---- STYLING ----
@@ -86,11 +88,15 @@ export const UserSignup = () => {
     
     //Check if password is more then 3 characters
     if (formData.password.length < 3){
-      toast.error("Password must be at least 3 characters long, please try again");
+      toast.error("Password must be at least 3 characters long, please try again", {
+        icon: HappyFaceWarnIcon
+      });
       setError("Password must be at least 3 characters long, please try again");
 
     } else {
-      const failUserExist = () => toast.error("This user already exit, please try again"); 
+      const failUserExist = () => toast.error("This user already exit, please try again", {
+        icon: HappyFaceWarnIcon
+      }); 
 
       try {
         const response = await fetch(`${apiUrl}/users`, {
@@ -127,7 +133,9 @@ export const UserSignup = () => {
             localStorage.setItem("userId", loginData.userId);
             localStorage.setItem("user", JSON.stringify(loginData));
 
-            toast.success("Login successful!");       
+            toast.success("Login successful!", {
+              icon: HappyFaceIcon
+            });       
           
             navigate("/", { state: { loginData } });
           } else {

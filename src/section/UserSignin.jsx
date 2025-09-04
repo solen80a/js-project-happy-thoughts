@@ -1,9 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
 import styled from "styled-components"
 
+import { HappyFaceIcon } from "../components/icons/HappyFaceIcon"
 import { HappyFaceIconPlus } from "../components/icons/HappyFaceIconPlus"
+import { HappyFaceLogoutIcon } from "../components/icons/HappyFaceLogoutIcon"
+import { HappyFaceWarnIcon } from "../components/icons/HappyFaceWarnIcon"
 import { SaveIcon } from "../components/icons/SaveIcon"
 
 //#region ---- STYLING ----
@@ -70,7 +73,7 @@ const UserSigninWrapper = styled.div`
 `
 //#endregion
 
-export const UserSignin = () => {
+export const UserSignin = (user) => {
   const navigate = useNavigate()
 
   const apiUrl = "https://js-project-api-afon.onrender.com/sessions"
@@ -83,11 +86,23 @@ export const UserSignin = () => {
 
   const [error, setError] = useState("");
 
+   useEffect(() => {
+     if(!user.accessToken) {
+      toast.info("You are logged out. Please log in to post a happy thought.", {
+        icon: HappyFaceLogoutIcon
+      })
+     } 
+ 
+   }, [user.accessToken])
+
   const handleLogin = async (event) => {
     event.preventDefault();
   
     
-    const fail = () => toast.error("Username and/or password is incorrect, please try again.");     
+    const fail = () => toast.error("Username and/or password is incorrect, please try again.", {
+        icon: HappyFaceWarnIcon
+      });
+       
 
     if(!formData.username.trim() || !formData.password.trim()){
       setError("Please fill in both username and password");
@@ -116,9 +131,9 @@ export const UserSignin = () => {
         localStorage.setItem("userId", user.userId);   
         localStorage.setItem("user", JSON.stringify(user));     
 
-        toast.success("Login successful!"); 
+        
               
-        navigate("/", { state: { user } });
+        navigate("/", { state: { user } });       
 
       } else {
         fail(); // Show toast error

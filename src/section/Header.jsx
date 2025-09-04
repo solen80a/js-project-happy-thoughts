@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 import { HappyFaceIcon } from "../components/icons/HappyFaceIcon"
+import { HappyFaceLogoutIcon } from "../components/icons/HappyFaceLogoutIcon"
 
 //#region ---- STYLING ----
 const HeaderWrapper = styled.div`
@@ -41,7 +42,7 @@ export const Header = () => {
     localStorage.removeItem("user"); 
     localStorage.removeItem("accessToken");
     localStorage.removeItem("userId");
-    navigate("/"); // Redirect to login page
+    navigate("/usersignin"); // Redirect to login page
   }
 
   return(    
@@ -49,23 +50,29 @@ export const Header = () => {
       <HeaderWrapper>
         <h1>Happy Thoughts</h1>
     
-        <ButtonWrapper>
+        
           {user ? 
+          <ButtonWrapper>
             <button onClick={handleSignout}
               style={{
               backgroundColor: user ? "#f0aeae" : "#eeeeee" ,
               border: "none"
             }}>      
-              Logout
-            </button>            
+              
+              <HappyFaceLogoutIcon/>
+            </button> 
+            Logout
+          </ButtonWrapper>           
           :  
+          <ButtonWrapper>
             <button onClick={handleSignin}
               
             >   
               <HappyFaceIcon />
             </button> 
-          }
-        </ButtonWrapper>
+          Login
+          </ButtonWrapper>
+          }     
       </HeaderWrapper>          
     </header>
     

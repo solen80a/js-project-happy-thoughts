@@ -3,6 +3,8 @@ import { toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
 
 import { ErrorHandeler } from "../../components/ErrorHandeler";
+import { HappyFaceIcon } from "../../components/icons/HappyFaceIcon";
+import { HappyFaceWarnIcon } from "../../components/icons/HappyFaceWarnIcon";
 
 //#region ---- STYLING ----
 
@@ -67,8 +69,12 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
   useEffect(() => {
     if(!accessToken) {
       toast.info("Please log in to post a happy thought.", {
-        toastId: "not-logged-in",
+        icon: HappyFaceIcon
       })
+    } else {       
+      toast.success("Welcome to post some thoughts, you are logged in", {
+        icon: HappyFaceIcon
+      }); 
     }
 
   }, [accessToken])
@@ -77,7 +83,9 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
     event.preventDefault();
 
     if(!accessToken) {
-      toast.warning("You need to log in to post thoughts.")
+      toast.warning("You need to log in to post thoughts.", {
+        icon: HappyFaceWarnIcon
+      })
       return
     }
 
@@ -96,13 +104,17 @@ export const MessageCard = ({ userInput, setUserInput, comment, setApiNewId }) =
     const data = await response.json()
 
     if (!response.ok){
-      toast.error(data.error || "Something went wrong. Please try again.")
+      toast.error(data.error || "Something went wrong. Please try again.", {
+        icon: HappyFaceWarnIcon
+      })
       return
     }
       setApiNewId(data._id)
       comment(event, userInput)
     } catch (error) {
-      toast.error("Network error — could not post thought.")
+      toast.error("Network error — could not post thought.", {
+        icon: HappyFaceWarnIcon
+      })
       console.error("API error:", error)
     }   
   };
